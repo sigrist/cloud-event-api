@@ -6,7 +6,7 @@ jdk:
 
 addons:
   sonarcloud:
-    projectKey: "cloud-events-api"
+    projectKey: "cloud-event-api"
     organization: "sigrist-github"
  
 
