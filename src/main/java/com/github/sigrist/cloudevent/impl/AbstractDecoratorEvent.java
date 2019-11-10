@@ -4,13 +4,12 @@ import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import com.github.sigrist.cloudevent.ContentType;
 import com.github.sigrist.cloudevent.Event;
 import com.github.sigrist.cloudevent.Extensions;
 
 public class AbstractDecoratorEvent<T> implements Event<T> {
 	private final Event<T> origin;
-	
+
 	public AbstractDecoratorEvent(final Event<T> origin) {
 		this.origin = origin;
 	}
@@ -46,7 +45,7 @@ public class AbstractDecoratorEvent<T> implements Event<T> {
 	}
 
 	@Override
-	public Optional<ContentType> dataContentType() {
+	public Optional<String> dataContentType() {
 		return this.origin.dataContentType();
 	}
 

@@ -9,7 +9,7 @@ public class DataRefExtension implements Extension {
 	public DataRefExtension(final URI dataRef) {
 		this.dataRef = dataRef;
 	}
-	
+
 	URI dataRef() {
 		return this.dataRef;
 	}

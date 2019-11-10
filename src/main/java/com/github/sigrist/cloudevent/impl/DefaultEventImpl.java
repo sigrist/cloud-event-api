@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.github.sigrist.cloudevent.ContentType;
 import com.github.sigrist.cloudevent.Event;
 import com.github.sigrist.cloudevent.Extensions;
 
@@ -14,16 +13,16 @@ public class DefaultEventImpl<T> implements Event<T> {
 	private final URI source;
 	private final String specVersion;
 	private final String type;
-	// TODO final
-	private Extensions extensions;
-	
-	
+	private final Extensions extensions;
+
 	public DefaultEventImpl(final URI source, final String type) {
 		this.id = UUID.randomUUID().toString();
 		this.source = source;
-		this.specVersion ="1.0";
+		this.specVersion = "1.0";
 		this.type = type;
+		this.extensions = new ExtensionsImpl();
 	}
+
 	@Override
 	public String id() {
 		return this.id;
@@ -55,7 +54,7 @@ public class DefaultEventImpl<T> implements Event<T> {
 	}
 
 	@Override
-	public Optional<ContentType> dataContentType() {
+	public Optional<String> dataContentType() {
 		return Optional.empty();
 	}
 
