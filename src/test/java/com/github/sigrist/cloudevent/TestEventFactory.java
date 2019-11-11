@@ -3,7 +3,10 @@ package com.github.sigrist.cloudevent;
 import java.net.URI;
 import java.time.LocalDateTime;
 
+import com.github.sigrist.cloudevent.extensions.DataRefExtension;
+import com.github.sigrist.cloudevent.extensions.DistributedTracingExtension;
 import com.github.sigrist.cloudevent.impl.AbstractEventFactory;
+import com.github.sigrist.cloudevent.impl.ExtensionsEventImpl;
 import com.github.sigrist.cloudevent.impl.LocalDataTimeEventImpl;
 import com.github.sigrist.cloudevent.impl.SubjectEventImpl;
 
@@ -14,8 +17,12 @@ public class TestEventFactory extends AbstractEventFactory implements EventFacto
 	}
 
 	public Event<MyPayload> myPayloadEvent(final MyPayload payload) {
-		return new LocalDataTimeEventImpl<>(new SubjectEventImpl<>(this.create("MyPayload", payload), "Subject"),
-				LocalDateTime.now());
+		Extension dataRef = new DataRefExtension(URI.create("/xpto"));
+		Extension trace = new DistributedTracingExtension("traceParent", "traceState");
+
+		return new ExtensionsEventImpl<>(new ExtensionsEventImpl<>(new LocalDataTimeEventImpl<>(
+				new SubjectEventImpl<>(this.create("MyPayload", payload), "Subject"), LocalDateTime.now()), dataRef),
+				trace);
 	}
 
 	public Event<Void> myVoidEvent() {

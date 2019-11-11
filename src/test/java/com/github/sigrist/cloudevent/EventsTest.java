@@ -12,6 +12,7 @@ public class EventsTest {
 
 		System.out.println(event.data().get());
 		System.out.println(event.subject().get());
+		System.out.println(event.extensions());
 
 		System.out.println(eventVoid.subject().get());
 	}
