@@ -6,8 +6,10 @@ jdk:
 
 addons:
   sonarcloud:
-    projectKey: "cloud-event-api"
+    projectKey: "sigrist_cloud-event-api"
     organization: "sigrist-github"
+    token:
+       secure: 03fc51e5ee8848328d629dbc3772ba1b02008ed5
  
 
 script:
