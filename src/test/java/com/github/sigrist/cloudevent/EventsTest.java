@@ -3,16 +3,16 @@ package com.github.sigrist.cloudevent;
 public class EventsTest {
 
 	public static void main(String[] args) {
-		Event<MyPayload> event;
-		EventFactory factory = new TestEventFactory();
-		
+		TestEventFactory factory = new TestEventFactory();
+
 		MyPayload payload = new MyPayload(41, "Paulo Sigrist");
-		
-		
-		event = factory.create("payload", payload);
-		Event<Void> eventVoid = factory.create("void");
-		
-		System.out.println(event);
+
+		Event<MyPayload> event = factory.myPayloadEvent(payload);
+		Event<Void> eventVoid = factory.myVoidEvent();
+
+		System.out.println(event.data().get());
+		System.out.println(event.subject().get());
+
 		System.out.println(eventVoid.subject().get());
 	}
 }

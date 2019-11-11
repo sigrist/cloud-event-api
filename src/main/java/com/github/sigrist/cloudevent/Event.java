@@ -7,18 +7,22 @@ import java.util.Optional;
 public interface Event<T> {
 
 	String id();
+
 	URI source();
+
 	String specVersion();
+
 	String type();
-	
+
 	Optional<String> subject();
-	
+
 	Optional<LocalDateTime> time();
 
-	
-	Optional<ContentType> dataContentType();
+	Optional<String> dataContentType();
+
 	Optional<URI> dataSchema();
+
 	Optional<T> data();
-	
+
 	Extensions extensions();
 }
