@@ -18,13 +18,11 @@ public abstract class AbstractEventFactory implements EventFactory {
 		return this.source;
 	}
 
-	@Override
-	public <T> Event<T> create(final String type) {
+	protected final <T> Event<T> create(final String type) {
 		return new DefaultEventImpl<>(this.source, type);
 	}
 
-	@Override
-	public <T> Event<T> create(final String type, T data) {
+	protected final <T> Event<T> create(final String type, T data) {
 		return new DataEventImpl<>(new DefaultEventImpl<>(this.source, type), data);
 	}
 

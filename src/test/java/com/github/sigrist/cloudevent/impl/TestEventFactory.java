@@ -1,8 +1,11 @@
-package com.github.sigrist.cloudevent;
+package com.github.sigrist.cloudevent.impl;
 
 import java.net.URI;
 import java.time.LocalDateTime;
 
+import com.github.sigrist.cloudevent.Event;
+import com.github.sigrist.cloudevent.EventFactory;
+import com.github.sigrist.cloudevent.Extension;
 import com.github.sigrist.cloudevent.extensions.DataRefExtension;
 import com.github.sigrist.cloudevent.extensions.DistributedTracingExtension;
 import com.github.sigrist.cloudevent.impl.AbstractEventFactory;
@@ -26,6 +29,6 @@ public class TestEventFactory extends AbstractEventFactory implements EventFacto
 	}
 
 	public Event<Void> myVoidEvent() {
-		return new SubjectEventImpl<>(this.create("voidEvent"), "void event");
+		return this.create("voidEvent");
 	}
 }
