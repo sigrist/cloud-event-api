@@ -14,16 +14,16 @@ import com.github.sigrist.cloudevent.Event;
 public class EventsFactoryTest {
 
 	private final TestEventFactory factory;
+	private final URI expectedSource;
 
 	public EventsFactoryTest() {
 		this.factory = new TestEventFactory();
+		this.expectedSource = URI.create("/TestEventFactory");
 	}
 
 	@Test
 	public void testVoidEvent() {
-		URI expectedSource = URI.create("/TestEventFactory");
-
-		Event<Void> eventVoid = factory.myVoidEvent();
+		final Event<Void> eventVoid = factory.myVoidEvent();
 
 		assertNotNull(eventVoid);
 		assertNotNull(eventVoid.id());
@@ -39,15 +39,24 @@ public class EventsFactoryTest {
 
 	}
 
-	public void doo() {
-
+	@Test
+	public void testMyPayloadEvent() {
 		final MyPayload payload = new MyPayload(41, "Paulo Sigrist");
+		final Event<MyPayload> event = factory.myPayloadEvent(payload);
+		final URI payloadDataSchema = URI.create("/MyPayloadDataSchema");
 
-		Event<MyPayload> event = factory.myPayloadEvent(payload);
-
-		System.out.println(event.data().get());
-		System.out.println(event.subject().get());
-		System.out.println(event.extensions());
+		assertNotNull(event);
+		assertNotNull(event.id());
+		assertEquals("1.0", event.specVersion());
+		assertEquals("MyPayloadEvent", event.type());
+		assertEquals(expectedSource, event.source());
+		assertEquals("Subject", event.subject().get());
+		assertFalse(event.time().isEmpty());
+		assertEquals("application/json", event.dataContentType().get());
+		assertEquals(payloadDataSchema, event.dataSchema().get());
+		assertFalse(event.data().isEmpty());
+		assertEquals(payload, event.data().get());
+		assertFalse(event.extensions().iterator().hasNext());
 
 	}
 }

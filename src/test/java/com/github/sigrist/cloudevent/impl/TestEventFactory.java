@@ -5,13 +5,6 @@ import java.time.LocalDateTime;
 
 import com.github.sigrist.cloudevent.Event;
 import com.github.sigrist.cloudevent.EventFactory;
-import com.github.sigrist.cloudevent.Extension;
-import com.github.sigrist.cloudevent.extensions.DataRefExtension;
-import com.github.sigrist.cloudevent.extensions.DistributedTracingExtension;
-import com.github.sigrist.cloudevent.impl.AbstractEventFactory;
-import com.github.sigrist.cloudevent.impl.ExtensionsEventImpl;
-import com.github.sigrist.cloudevent.impl.LocalDataTimeEventImpl;
-import com.github.sigrist.cloudevent.impl.SubjectEventImpl;
 
 public class TestEventFactory extends AbstractEventFactory implements EventFactory {
 
@@ -20,12 +13,11 @@ public class TestEventFactory extends AbstractEventFactory implements EventFacto
 	}
 
 	public Event<MyPayload> myPayloadEvent(final MyPayload payload) {
-		Extension dataRef = new DataRefExtension(URI.create("/xpto"));
-		Extension trace = new DistributedTracingExtension("traceParent", "traceState");
 
-		return new ExtensionsEventImpl<>(new ExtensionsEventImpl<>(new LocalDataTimeEventImpl<>(
-				new SubjectEventImpl<>(this.create("MyPayload", payload), "Subject"), LocalDateTime.now()), dataRef),
-				trace);
+		return new DataContentTypeEventImpl<>(new DataSchemaEventImpl<>(
+				new LocalDataTimeEventImpl<>(new SubjectEventImpl<>(this.create("MyPayloadEvent", payload), "Subject"),
+						LocalDateTime.now()),
+				URI.create("/MyPayloadDataSchema")), "application/json");
 	}
 
 	public Event<Void> myVoidEvent() {

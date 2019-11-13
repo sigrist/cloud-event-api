@@ -19,11 +19,11 @@ public abstract class AbstractEventFactory implements EventFactory {
 	}
 
 	protected final <T> Event<T> create(final String type) {
-		return new DefaultEventImpl<>(this.source, type);
+		return new DefaultEventImpl<>(this.source(), type);
 	}
 
 	protected final <T> Event<T> create(final String type, T data) {
-		return new DataEventImpl<>(new DefaultEventImpl<>(this.source, type), data);
+		return new DataEventImpl<>(new DefaultEventImpl<>(this.source(), type), data);
 	}
 
 }
