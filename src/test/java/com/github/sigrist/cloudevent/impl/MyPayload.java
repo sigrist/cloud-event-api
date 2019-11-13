@@ -1,4 +1,4 @@
-package com.github.sigrist.cloudevent;
+package com.github.sigrist.cloudevent.impl;
 
 public class MyPayload {
 

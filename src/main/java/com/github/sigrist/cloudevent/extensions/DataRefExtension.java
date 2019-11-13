@@ -1,6 +1,8 @@
-package com.github.sigrist.cloudevent;
+package com.github.sigrist.cloudevent.extensions;
 
 import java.net.URI;
+
+import com.github.sigrist.cloudevent.Extension;
 
 public class DataRefExtension implements Extension {
 
