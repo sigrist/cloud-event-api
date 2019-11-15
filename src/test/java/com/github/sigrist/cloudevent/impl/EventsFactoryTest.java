@@ -41,11 +41,11 @@ public class EventsFactoryTest {
 
 	@Test
 	public void testMyPayloadEvent() {
-		final MyPayload payload = new MyPayload(41, "Paulo Sigrist");
+		final MyPayload payload = new MyPayload(40, "Paulo Sigrist");
 		final Event<MyPayload> event = factory.myPayloadEvent(payload);
 		final URI payloadDataSchema = URI.create("/MyPayloadDataSchema");
 
-		assertNotNull(event);
+		assertNotNull(event); 
 		assertNotNull(event.id());
 		assertEquals("1.0", event.specVersion());
 		assertEquals("MyPayloadEvent", event.type());
@@ -57,6 +57,19 @@ public class EventsFactoryTest {
 		assertFalse(event.data().isEmpty());
 		assertEquals(payload, event.data().get());
 		assertFalse(event.extensions().iterator().hasNext());
+
+	}
+	
+	@Test
+	public void testMyPayloadEventWithExtension() {
+		final MyPayload payload = new MyPayload(40, "Paulo Sigrist");
+		final Event<MyPayload> event = factory.myPayloadWithExtension(payload);
+
+		assertNotNull(event); 
+		assertNotNull(event.id());
+		assertEquals("1.0", event.specVersion());
+		assertEquals("MyPayloadWithExtension", event.type());
+		assertEquals(expectedSource, event.source());
 
 	}
 }

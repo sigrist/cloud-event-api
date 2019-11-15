@@ -12,15 +12,20 @@ public class TestEventFactory extends AbstractEventFactory implements EventFacto
 		super(URI.create("/TestEventFactory"));
 	}
 
+	public Event<Void> myVoidEvent() {
+		return this.create("voidEvent");
+	}
+	
 	public Event<MyPayload> myPayloadEvent(final MyPayload payload) {
-
 		return new DataContentTypeEventImpl<>(new DataSchemaEventImpl<>(
 				new LocalDataTimeEventImpl<>(new SubjectEventImpl<>(this.create("MyPayloadEvent", payload), "Subject"),
 						LocalDateTime.now()),
 				URI.create("/MyPayloadDataSchema")), "application/json");
 	}
 
-	public Event<Void> myVoidEvent() {
-		return this.create("voidEvent");
+	
+	public Event<MyPayload> myPayloadWithExtension(final MyPayload payload) {
+		return this.create("MyPayloadWithExtension", payload);
 	}
+	
 }

@@ -15,7 +15,7 @@ public class ExtensionsImpl extends ArrayList<Extension> implements Extensions {
 	public ExtensionsImpl() {
 	}
 
-	public ExtensionsImpl(Extensions extensions, Extension extension) {
+	public ExtensionsImpl(final Extensions extensions, final Extension extension) {
 		extensions.forEach(this::add);
 		this.add(extension);
 	}
