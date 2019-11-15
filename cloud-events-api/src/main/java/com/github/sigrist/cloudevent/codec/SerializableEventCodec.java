@@ -15,13 +15,13 @@ public class SerializableEventCodec extends BaseSerializableCodec implements Eve
 		return this.toBytes(event);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public <T> Event<T> decode(final InputStream stream, final Class<T> clazz) {
 		final Object object;
 
 		try {
 			object = this.toObject(stream.readAllBytes());
+			// TODO IF
 			if (object instanceof Event) {
 				return (Event<T>) object;
 			}
