@@ -15,13 +15,15 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.comparator.CustomComparator;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.github.sigrist.cloudevent.Event;
 import com.github.sigrist.cloudevent.EventCodec;
 import com.github.sigrist.cloudevent.impl.Codecs;
 
 public class JacksonJsonEventCodecTest {
 
-	private final EventCodec codec = new JacksonJsonEventCodec(new Codecs(new JacksonJsonCodec()));
+	private final EventCodec codec = new JacksonJsonEventCodec(new Codecs(new JacksonJsonCodec(), new JacksonXmlCodec()));
 	private final MyPayload payload = new MyPayload(40, "Paulo");
 	private final MyEventFactory factory = new MyEventFactory();
 
@@ -56,6 +58,29 @@ public class JacksonJsonEventCodecTest {
 		assertEquals("Subject", event.subject().get());
 		assertFalse(event.time().isEmpty());
 		assertEquals("application/json", event.dataContentType().get());
+		assertEquals(payloadDataSchema, event.dataSchema().get());
+		assertFalse(event.data().isEmpty());
+		assertEquals(payload, event.data().get());
+		assertFalse(event.extensions().iterator().hasNext());
+
+	}
+
+	@Test
+	public void testDecodeXml() throws JsonMappingException, JsonProcessingException {
+		
+		InputStream stream = JacksonJsonEventCodecTest.class.getResourceAsStream("/expectedEventXml.json");
+		Event<MyPayload> event = codec.decode(stream, MyPayload.class);
+		final URI payloadDataSchema = URI.create("/MyPayloadDataSchemaXml");
+		final URI expectedSource = URI.create("/MyEventFactory");
+
+		assertNotNull(event);
+		assertNotNull(event.id());
+		assertEquals("1.0", event.specVersion());
+		assertEquals("MyPayloadEvent", event.type());
+		assertEquals(expectedSource, event.source());
+		assertEquals("Subject", event.subject().get());
+		assertFalse(event.time().isEmpty());
+		assertEquals("text/xml", event.dataContentType().get());
 		assertEquals(payloadDataSchema, event.dataSchema().get());
 		assertFalse(event.data().isEmpty());
 		assertEquals(payload, event.data().get());

@@ -1,5 +1,6 @@
 package com.github.sigrist.cloudevent.impl;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Function;
@@ -7,8 +8,12 @@ import java.util.stream.Collectors;
 
 import com.github.sigrist.cloudevent.Codec;
 
-public class Codecs {
+public class Codecs implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final Map<String, Codec> codecsMap;
 
 	public Codecs(final Codec... codecs) {
@@ -16,6 +21,30 @@ public class Codecs {
 	}
 
 	public Codec get(final String contentType) {
-		return this.codecsMap.get(contentType);
+		return this.codecsMap.getOrDefault(contentType, new NopCodec());
+	}
+
+	private class NopCodec implements Codec {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String encode(Object source) {
+			throw new UnsupportedOperationException("Encode: invalid codec");
+		}
+
+		@Override
+		public <T> T decode(String object, Class<T> clazz) {
+			throw new UnsupportedOperationException("Decode: invalid codec");
+		}
+
+		@Override
+		public String contentType() {
+			throw new UnsupportedOperationException("ContentType: invalid codec");
+		}
+
 	}
 }

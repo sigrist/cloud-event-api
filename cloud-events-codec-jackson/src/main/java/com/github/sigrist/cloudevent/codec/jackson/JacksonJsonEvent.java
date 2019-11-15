@@ -11,23 +11,23 @@ import com.github.sigrist.cloudevent.Extensions;
 import com.github.sigrist.cloudevent.impl.ExtensionsImpl;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class JacksonJsonEvent<T> implements Event<T> {
+final class JacksonJsonEvent<T> implements Event<T> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@JsonProperty("id")
+	@JsonProperty(value = "id", required = true)
 	private String id;
 
-	@JsonProperty("source")
+	@JsonProperty(value = "source", required = true)
 	private URI source;
 
-	@JsonProperty("specversion")
+	@JsonProperty(value = "specversion", required = true)
 	private String specVersion;
 
-	@JsonProperty("type")
+	@JsonProperty(value = "type", required = true)
 	private String type;
 
 	@JsonProperty("subject")
@@ -41,7 +41,7 @@ public final class JacksonJsonEvent<T> implements Event<T> {
 
 	@JsonProperty("time")
 	private LocalDateTime time;
-
+	
 	@Override
 	public String id() {
 		return this.id;

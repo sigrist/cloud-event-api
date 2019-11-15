@@ -15,8 +15,8 @@ public class MyEventFactory extends AbstractEventFactory implements EventFactory
 
 	public MyEventFactory() {
 		// TODO Change abstract factory to get codecs drom EventCodecs
-		super(URI.create("/MyEventFactory"), new JacksonJsonEventCodec(new Codecs(new JacksonJsonCodec())),
-				new JacksonJsonCodec());
+		super(URI.create("/MyEventFactory"), new JacksonJsonEventCodec(new Codecs(new JacksonJsonCodec(), new JacksonXmlCodec())),
+				new JacksonJsonCodec(), new JacksonXmlCodec());
 	}
 
 	public Event<MyPayload> simpleEvent(final MyPayload payload) {
