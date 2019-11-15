@@ -1,10 +1,11 @@
 package com.github.sigrist.cloudevent;
 
+import java.io.Serializable;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-public interface Event<T> {
+public interface Event<T> extends Serializable {
 
 	String id();
 
