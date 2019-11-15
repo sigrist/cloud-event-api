@@ -46,8 +46,9 @@ public class JacksonJsonEventCodec implements EventCodec {
 			
 			Event<?> event = this.mapper.treeToValue(node, JacksonJsonEvent.class);
 			
-			if (node.has("data")) {
-				Codec codec = codecs.get("application/json");
+			if (node.has("data") && node.has("datacontenttype")) {
+				String contentType = node.get("datacontenttype").asText();
+				Codec codec = codecs.get(contentType);
 				JsonNode jsonData = node.get("data");
 				
 				String json = mapper.writeValueAsString(jsonData);
