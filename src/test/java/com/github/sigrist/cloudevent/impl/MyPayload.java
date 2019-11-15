@@ -25,6 +25,11 @@ public class MyPayload implements Serializable {
 	}
 	
 	@Override
+	public String toString() {
+		return "Name:"+this.getName() + " / Age: "+this.getAge();
+	}
+	
+	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof MyPayload) {
 			final MyPayload other = (MyPayload)obj;

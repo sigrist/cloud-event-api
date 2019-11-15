@@ -9,6 +9,10 @@ import com.github.sigrist.cloudevent.Event;
 import com.github.sigrist.cloudevent.Extensions;
 
 public class DefaultEventImpl<T> implements Event<T> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final String id;
 	private final URI source;
 	private final String specVersion;

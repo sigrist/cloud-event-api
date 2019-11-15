@@ -1,6 +1,8 @@
 package com.github.sigrist.cloudevent;
 
-public interface Codec {
+import java.io.Serializable;
+
+public interface Codec extends Serializable {
 
 	String encode(Object source);
 	

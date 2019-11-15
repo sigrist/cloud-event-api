@@ -6,15 +6,19 @@ import com.github.sigrist.cloudevent.Event;
 
 public class SubjectEventImpl<T> extends AbstractDecoratorEvent<T> implements Event<T> {
 
-	private final Optional<String> subject;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private final String subject;
 
 	public SubjectEventImpl(final Event<T> origin, final String subject) {
 		super(origin);
-		this.subject = Optional.of(subject);
+		this.subject = subject;
 	}
 
 	@Override
 	public Optional<String> subject() {
-		return this.subject;
+		return Optional.of(this.subject);
 	}
 }

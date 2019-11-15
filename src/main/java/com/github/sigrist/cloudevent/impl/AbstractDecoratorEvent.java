@@ -8,6 +8,11 @@ import com.github.sigrist.cloudevent.Event;
 import com.github.sigrist.cloudevent.Extensions;
 
 public class AbstractDecoratorEvent<T> implements Event<T> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private final Event<T> origin;
 
 	public AbstractDecoratorEvent(final Event<T> origin) {
