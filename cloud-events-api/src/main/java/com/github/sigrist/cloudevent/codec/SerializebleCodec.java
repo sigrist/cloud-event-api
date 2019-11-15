@@ -18,12 +18,12 @@ public class SerializebleCodec extends BaseSerializableCodec implements Codec {
 		return Base64.getEncoder().encodeToString(this.toBytes(object));
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T decode(final String target, final Class<T> clazz) {
 		byte[] data = Base64.getDecoder().decode(target);
 		final Object o = this.toObject(data);
 
+		// TODO if
 		if (clazz.isInstance(o)) {
 			return (T) o;
 		}
