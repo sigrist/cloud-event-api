@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.LocalDateTime;
 
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
@@ -49,20 +50,20 @@ public class JacksonJsonEventCodecTest {
 		Event<MyPayload> event = codec.decode(stream, MyPayload.class);
 		final URI payloadDataSchema = URI.create("/MyPayloadDataSchema");
 		final URI expectedSource = URI.create("/MyEventFactory");
+		final LocalDateTime expectedTime = LocalDateTime.parse("2019-11-15T14:45:03.650572");
 
 		assertNotNull(event);
-		assertNotNull(event.id());
+		assertEquals("ae2bc7a9-c52b-4246-9683-111f48029a54", event.id());
 		assertEquals("1.0", event.specVersion());
 		assertEquals("MyPayloadEvent", event.type());
 		assertEquals(expectedSource, event.source());
 		assertEquals("Subject", event.subject().get());
-		assertFalse(event.time().isEmpty());
+		assertEquals(expectedTime, event.time().get());
 		assertEquals("application/json", event.dataContentType().get());
 		assertEquals(payloadDataSchema, event.dataSchema().get());
 		assertFalse(event.data().isEmpty());
 		assertEquals(payload, event.data().get());
 		assertFalse(event.extensions().iterator().hasNext());
-
 	}
 
 	@Test
@@ -72,14 +73,15 @@ public class JacksonJsonEventCodecTest {
 		Event<MyPayload> event = codec.decode(stream, MyPayload.class);
 		final URI payloadDataSchema = URI.create("/MyPayloadDataSchemaXml");
 		final URI expectedSource = URI.create("/MyEventFactory");
+		final LocalDateTime expectedTime = LocalDateTime.parse("2019-11-15T14:45:03.650572");
 
 		assertNotNull(event);
-		assertNotNull(event.id());
+		assertEquals("ae2bc7a9-c52b-4246-9683-111f48029a54", event.id());
 		assertEquals("1.0", event.specVersion());
 		assertEquals("MyPayloadEvent", event.type());
 		assertEquals(expectedSource, event.source());
 		assertEquals("Subject", event.subject().get());
-		assertFalse(event.time().isEmpty());
+		assertEquals(expectedTime, event.time().get());
 		assertEquals("text/xml", event.dataContentType().get());
 		assertEquals(payloadDataSchema, event.dataSchema().get());
 		assertFalse(event.data().isEmpty());

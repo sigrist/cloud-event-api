@@ -35,7 +35,7 @@ public class JacksonJsonDataEvent<T> extends AbstractDecoratorEvent<T> {
 
 		Optional<JsonNode> data = this.rawData();
 
-		return data.isPresent() ? decodedData(data.get()) : Optional.empty();
+		return data.map(this::decodedData).orElse(Optional.empty());
 
 	}
 	
@@ -47,7 +47,7 @@ public class JacksonJsonDataEvent<T> extends AbstractDecoratorEvent<T> {
 	private Optional<T> decodedData(final JsonNode node) {
 		String rawValue = value(node);
 
-		return Optional.of(codec().decode(rawValue, this.clazz));
+		return Optional.ofNullable(codec().decode(rawValue, this.clazz));
 	}
 
 	private String value(final JsonNode node) {
@@ -59,7 +59,8 @@ public class JacksonJsonDataEvent<T> extends AbstractDecoratorEvent<T> {
 	}
 
 	private Optional<JsonNode> rawData() {
-		return this.rawJson.has("data") && this.dataContentType().isPresent() ? Optional.of(this.rawJson.get("data"))
+		return this.rawJson.has("data") && this.dataContentType().isPresent() ? 
+				Optional.of(this.rawJson.get("data"))
 				: Optional.empty();
 	}
 
