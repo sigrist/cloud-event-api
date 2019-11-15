@@ -19,6 +19,7 @@
 
 	<modules>
 		<module>cloud-events-api</module>
+		<module>cloud-events-codec-jackson</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>
