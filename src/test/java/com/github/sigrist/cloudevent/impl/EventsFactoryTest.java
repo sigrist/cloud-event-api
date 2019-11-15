@@ -52,7 +52,7 @@ public class EventsFactoryTest {
 		assertEquals(expectedSource, event.source());
 		assertEquals("Subject", event.subject().get());
 		assertFalse(event.time().isEmpty());
-		assertEquals("application/json", event.dataContentType().get());
+		assertEquals("text/plain", event.dataContentType().get());
 		assertEquals(payloadDataSchema, event.dataSchema().get());
 		assertFalse(event.data().isEmpty());
 		assertEquals(payload, event.data().get());

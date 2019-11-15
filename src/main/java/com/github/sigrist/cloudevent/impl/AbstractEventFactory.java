@@ -1,16 +1,27 @@
 package com.github.sigrist.cloudevent.impl;
 
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
+import com.github.sigrist.cloudevent.Codec;
 import com.github.sigrist.cloudevent.Event;
 import com.github.sigrist.cloudevent.EventFactory;
 
 public abstract class AbstractEventFactory implements EventFactory {
 
 	private final URI source;
+	private final Map<String, Codec> codecs;
 
-	public AbstractEventFactory(final URI source) {
+	public AbstractEventFactory(final URI source, final Codec... codecs) {
 		this.source = source;
+		this.codecs = new HashMap<>();
+
+		// Add the codecs
+		for (int i = 0; i < codecs.length; i++) {
+			final Codec c = codecs[i];
+			this.codecs.put(c.contentType(), c);
+		}
 	}
 
 	@Override
@@ -22,8 +33,11 @@ public abstract class AbstractEventFactory implements EventFactory {
 		return new DefaultEventImpl<>(this.source(), type);
 	}
 
-	protected final <T> Event<T> create(final String type, T data) {
-		return new DataEventImpl<>(new DefaultEventImpl<>(this.source(), type), data);
+	protected final <T> Event<T> create(final String type, final String contentType, final T data) {
+		final Codec codec = this.codecs.get(contentType);
+
+		// TODO Check if codec is not null
+		return new DataEventImpl<>(new DefaultEventImpl<>(this.source(), type), codec, data);
 	}
 
 }
