@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -50,13 +49,6 @@ public class EventsFactoryTest {
 		final Event<MyPayload> event = factory.myPayloadEvent(payload);
 		final URI payloadDataSchema = URI.create("/MyPayloadDataSchema");
 
-//		{
-//			byte[] data = new SerializableEventCodec().encode(event);
-//			FileOutputStream out = new FileOutputStream("event.data");
-//			out.write(data);
-//			out.close();
-//		}
-		
 		
 		assertNotNull(event); 
 		assertNotNull(event.id());
@@ -86,7 +78,37 @@ public class EventsFactoryTest {
 
 	}
 	
-	
+
+	@Test
+	public void testToStream() throws IOException {
+
+		final MyPayload payload = new MyPayload(40, "Paulo Sigrist");
+		final Event<MyPayload> event = factory.myPayloadEvent(payload);
+		final URI payloadDataSchema = URI.create("/MyPayloadDataSchema");
+		final SerializableEventCodec codec = new SerializableEventCodec();
+		
+		byte[] data = codec.encode(event);
+		
+		Event<MyPayload> event2 = codec.decode(new ByteArrayInputStream(data), MyPayload.class);
+		
+		assertNotNull(event2); 
+		assertNotNull(event2.id());
+		assertEquals("1.0", event2.specVersion());
+		assertEquals("MyPayloadEvent", event2.type());
+		assertEquals(expectedSource, event2.source());
+		assertEquals("Subject", event2.subject().get());
+		assertFalse(event2.time().isEmpty());
+		assertEquals("text/plain", event2.dataContentType().get());
+		assertEquals(payloadDataSchema, event2.dataSchema().get());
+		assertFalse(event2.data().isEmpty());
+		assertEquals(payload, event2.data().get());
+		assertFalse(event2.extensions().iterator().hasNext());
+
+		
+		
+		
+
+	}
 	@Test
 	public void testFromStream() {
 		final MyPayload payload = new MyPayload(40, "Paulo Sigrist");
