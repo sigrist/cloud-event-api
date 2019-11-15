@@ -15,7 +15,7 @@ public class DataEventImpl<T> extends DataContentTypeEventImpl<T> implements Eve
 	private final Class<T> clazz;
 
 	@SuppressWarnings("unchecked")
-	public DataEventImpl(final Event<T> origin, final Codec codec, final T data) {
+	public DataEventImpl(final Event<T> origin, final Codec codec, final Object data) {
 		super(origin, codec.contentType());
 		this.codec = codec;
 		this.clazz = (Class<T>) data.getClass();
