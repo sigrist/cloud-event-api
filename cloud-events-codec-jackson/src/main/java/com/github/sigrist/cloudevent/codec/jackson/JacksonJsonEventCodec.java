@@ -27,6 +27,7 @@ public class JacksonJsonEventCodec implements EventCodec {
 		this.mapper.registerModule(new JavaTimeModule());
 		this.mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         
+		
         this.codecs = codecs;
 	}
 	@Override
