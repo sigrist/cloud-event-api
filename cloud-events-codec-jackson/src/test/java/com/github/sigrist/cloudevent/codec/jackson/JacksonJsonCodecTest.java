@@ -8,30 +8,25 @@ import com.github.sigrist.cloudevent.Codec;
 
 public class JacksonJsonCodecTest {
 
+	private final Codec codec = new JacksonJsonCodec();
+	private final MyPayload payload = new MyPayload(40, "Paulo");
+	private final String rawJson = "{\"age\":40,\"name\":\"Paulo\"}";
+
 	@Test
 	public void testEncode() {
-		final MyPayload payload = new MyPayload(40, "Paulo");
-		final Codec codec = new JacksonJsonCodec();
-		
-		String data = codec.encode(payload);
-		String expected = "{\"age\":40,\"name\":\"Paulo\"}";
-		
-		assertEquals(expected, data);
+
+		final String data = codec.encode(payload);
+
+		assertEquals(rawJson, data);
 	}
-	
+
 	@Test
 	public void testDecode() {
-		final MyPayload payload = new MyPayload(40, "Paulo");
-		final Codec codec = new JacksonJsonCodec();
-		final String json = "{\"age\":40,\"name\":\"Paulo\"}";
-		
-		
-		MyPayload actual = codec.decode(json, MyPayload.class);
-		
-		
+
+		final MyPayload actual = codec.decode(rawJson, MyPayload.class);
+
 		assertEquals(payload, actual);
-		
-		
+
 	}
 
 }
