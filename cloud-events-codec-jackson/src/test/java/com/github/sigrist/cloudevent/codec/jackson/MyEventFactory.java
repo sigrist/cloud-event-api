@@ -13,17 +13,17 @@ import com.github.sigrist.cloudevent.impl.SubjectEventImpl;
 
 public class MyEventFactory extends AbstractEventFactory implements EventFactory {
 
-	public MyEventFactory() {
-		// TODO Change abstract factory to get codecs drom EventCodecs
-		super(URI.create("/MyEventFactory"),
-				new JacksonJsonEventCodec(new Codecs(new JacksonJsonCodec(), new JacksonXmlCodec())),
-				new JacksonJsonCodec(), new JacksonXmlCodec());
-	}
+    public MyEventFactory() {
+        // TODO Change abstract factory to get codecs drom EventCodecs
+        super(URI.create("/MyEventFactory"),
+                new JacksonJsonEventCodec(new Codecs(new JacksonJsonCodec(), new JacksonXmlCodec())),
+                new JacksonJsonCodec(), new JacksonXmlCodec());
+    }
 
-	public Event<MyPayload> simpleEvent(final MyPayload payload) {
-		return new DataSchemaEventImpl<>(new LocalDataTimeEventImpl<>(
-				new SubjectEventImpl<>(this.create("MyPayloadEvent", "application/json", payload), "Subject"),
-				LocalDateTime.now()), URI.create("/MyPayloadDataSchema"));
-	}
+    public Event<MyPayload> simpleEvent(final MyPayload payload) {
+        return new DataSchemaEventImpl<>(new LocalDataTimeEventImpl<>(
+                new SubjectEventImpl<>(this.create("MyPayloadEvent", "application/json", payload), "Subject"),
+                LocalDateTime.now()), URI.create("/MyPayloadDataSchema"));
+    }
 
 }

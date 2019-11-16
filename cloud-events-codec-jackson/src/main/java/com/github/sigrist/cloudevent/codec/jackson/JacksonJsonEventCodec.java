@@ -18,62 +18,62 @@ import com.github.sigrist.cloudevent.EventCodec;
 
 public class JacksonJsonEventCodec implements EventCodec {
 
-	private final ObjectMapper mapper;
+    private final ObjectMapper mapper;
 
-	private final Codecs codecs;
+    private final Codecs codecs;
 
-	public JacksonJsonEventCodec(final Codecs codecs) {
-		this.mapper = new ObjectMapper();
-		this.mapper.registerModule(new Jdk8Module());
-		this.mapper.registerModule(new JavaTimeModule());
-		this.mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+    public JacksonJsonEventCodec(final Codecs codecs) {
+        this.mapper = new ObjectMapper();
+        this.mapper.registerModule(new Jdk8Module());
+        this.mapper.registerModule(new JavaTimeModule());
+        this.mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 
-		this.codecs = codecs;
-	}
+        this.codecs = codecs;
+    }
 
-	/**
-	 * Converts the `event` into JSON.
-	 * 
-	 * This is done adding on top of it an instance of
-	 * {@link JacksonEventDecorator}, where contains the {@link JsonProperty}
-	 * annotations.
-	 * 
-	 * @param event The event to encode.
-	 * 
-	 * @return the event encoded as JSON.
-	 * 
-	 * @throws CloudEventException when there is a JSON processing error.
-	 */
-	@Override
-	public byte[] encode(final Event<?> event) {
-		try {
-			return mapper.writeValueAsBytes(new JacksonEventDecorator<>(event));
-		} catch (JsonProcessingException e) {
-			throw new CloudEventException("Error encoding event to JSON", e);
-		}
-	}
+    /**
+     * Converts the `event` into JSON.
+     * 
+     * This is done adding on top of it an instance of
+     * {@link JacksonEventDecorator}, where contains the {@link JsonProperty}
+     * annotations.
+     * 
+     * @param event The event to encode.
+     * 
+     * @return the event encoded as JSON.
+     * 
+     * @throws CloudEventException when there is a JSON processing error.
+     */
+    @Override
+    public byte[] encode(final Event<?> event) {
+        try {
+            return mapper.writeValueAsBytes(new JacksonEventDecorator<>(event));
+        } catch (JsonProcessingException e) {
+            throw new CloudEventException("Error encoding event to JSON", e);
+        }
+    }
 
-	@Override
-	public <T> Event<T> decode(final InputStream stream, final Class<T> clazz) {
-		final JsonNode jsonNode = readJsonNode(stream);
+    @Override
+    public <T> Event<T> decode(final InputStream stream, final Class<T> clazz) {
+        final JsonNode jsonNode = readJsonNode(stream);
 
-		return new JacksonJsonDataEvent<>(convertEvent(jsonNode, clazz), jsonNode, codecs, clazz);
+        return new JacksonJsonDataEvent<>(convertEvent(jsonNode, clazz), jsonNode, codecs, clazz);
 
-	}
+    }
 
-	private JsonNode readJsonNode(final InputStream stream) {
-		try {
-			return this.mapper.readTree(stream);
-		} catch (IOException e) {
-			throw new CloudEventException("Error decoding event from JSON", e);
-		}
-	}
+    private JsonNode readJsonNode(final InputStream stream) {
+        try {
+            return this.mapper.readTree(stream);
+        } catch (IOException e) {
+            throw new CloudEventException("Error decoding event from JSON", e);
+        }
+    }
 
-	private <T> JacksonJsonEvent<T> convertEvent(final JsonNode jsonNode, final Class<T> clazz) {
-		final JavaType type = this.mapper.getTypeFactory().constructParametricType(JacksonJsonEvent.class, clazz);
+    private <T> JacksonJsonEvent<T> convertEvent(final JsonNode jsonNode, final Class<T> clazz) {
+        final JavaType type = this.mapper.getTypeFactory().constructParametricType(JacksonJsonEvent.class, clazz);
 
-		return this.mapper.convertValue(jsonNode, type);
+        return this.mapper.convertValue(jsonNode, type);
 
-	}
+    }
 
 }

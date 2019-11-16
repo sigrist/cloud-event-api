@@ -12,54 +12,54 @@ import com.github.sigrist.cloudevent.impl.AbstractDecoratorEvent;
 
 public class JacksonJsonDataEvent<T> extends AbstractDecoratorEvent<T> {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private final Codecs codecs;
-	private final Class<T> clazz;
-	private final JsonNode rawJson;
-	private final ObjectMapper mapper;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    private final Codecs codecs;
+    private final Class<T> clazz;
+    private final JsonNode rawJson;
+    private final ObjectMapper mapper;
 
-	public JacksonJsonDataEvent(final JacksonJsonEvent<T> origin, final JsonNode rawJson, final Codecs codecs,
-			final Class<T> clazz) {
-		super(origin);
-		this.mapper = new ObjectMapper();
-		this.codecs = codecs;
-		this.clazz = clazz;
-		this.rawJson = rawJson;
-	}
+    public JacksonJsonDataEvent(final JacksonJsonEvent<T> origin, final JsonNode rawJson, final Codecs codecs,
+            final Class<T> clazz) {
+        super(origin);
+        this.mapper = new ObjectMapper();
+        this.codecs = codecs;
+        this.clazz = clazz;
+        this.rawJson = rawJson;
+    }
 
-	@Override
-	public Optional<T> data() {
+    @Override
+    public Optional<T> data() {
 
-		Optional<JsonNode> data = this.rawData();
+        Optional<JsonNode> data = this.rawData();
 
-		return data.map(this::decodedData).orElse(Optional.empty());
+        return data.map(this::decodedData).orElse(Optional.empty());
 
-	}
+    }
 
-	private Codec codec() {
-		return this.codecs.get(this.dataContentType().orElseThrow());
-	}
+    private Codec codec() {
+        return this.codecs.get(this.dataContentType().orElseThrow());
+    }
 
-	private Optional<T> decodedData(final JsonNode node) {
-		String rawValue = value(node);
+    private Optional<T> decodedData(final JsonNode node) {
+        String rawValue = value(node);
 
-		return Optional.ofNullable(codec().decode(rawValue, this.clazz));
-	}
+        return Optional.ofNullable(codec().decode(rawValue, this.clazz));
+    }
 
-	private String value(final JsonNode node) {
-		try {
-			return node.isContainerNode() ? mapper.writeValueAsString(node) : node.asText();
-		} catch (JsonProcessingException e) {
-			throw new CloudEventException("Error readind data field", e);
-		}
-	}
+    private String value(final JsonNode node) {
+        try {
+            return node.isContainerNode() ? mapper.writeValueAsString(node) : node.asText();
+        } catch (JsonProcessingException e) {
+            throw new CloudEventException("Error readind data field", e);
+        }
+    }
 
-	private Optional<JsonNode> rawData() {
-		return this.rawJson.has("data") && this.dataContentType().isPresent() ? Optional.of(this.rawJson.get("data"))
-				: Optional.empty();
-	}
+    private Optional<JsonNode> rawData() {
+        return this.rawJson.has("data") && this.dataContentType().isPresent() ? Optional.of(this.rawJson.get("data"))
+                : Optional.empty();
+    }
 
 }
