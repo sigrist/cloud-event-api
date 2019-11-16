@@ -31,7 +31,8 @@ import java.util.stream.Collectors;
  */
 public class Codecs {
 
-    /** A map of codecs. The {@link Codec#contentType()} is the key. */
+    /** 
+     * A map of codecs. The {@link Codec#contentType()} is the key. */
     private final Map<String, Codec> codecsMap;
 
     /**
@@ -62,11 +63,8 @@ public class Codecs {
      */
     private class NopCodec implements Codec {
 
-        /**
-         * 
-         */
-        private static final long serialVersionUID = 1L;
-        /** The expected content type. */
+        /** 
+         * The expected content type. */
         private final String theContentType;
 
         /**

@@ -27,7 +27,9 @@ import java.net.URI;
  */
 public interface EventFactory {
 
-    /** Identifies the context in which an event happened. */
+    /**
+     * Identifies the context in which an event happened.
+     */
     URI source();
 
 }

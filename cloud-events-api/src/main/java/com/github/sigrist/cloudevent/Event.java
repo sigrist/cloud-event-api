@@ -30,13 +30,19 @@ import java.util.Optional;
  */
 public interface Event<T> {
 
-    /** Identifies the event. */
+    /**
+     * Identifies the event.
+     */
     String eventId();
 
-    /** Identifies the context in which an event happened. */
+    /**
+     * Identifies the context in which an event happened.
+     */
     URI source();
 
-    /** The version of the CloudEvents specification which the event uses. */
+    /**
+     * The version of the CloudEvents specification which the event uses.
+     */
     String specVersion();
 
     /**
@@ -50,18 +56,28 @@ public interface Event<T> {
      */
     Optional<String> subject();
 
-    /** Timestamp of when the occurrence happened. */
+    /**
+     * Timestamp of when the occurrence happened.
+     */
     Optional<LocalDateTime> time();
 
-    /** The Content type of data value. */
+    /**
+     * The Content type of data value.
+     */
     Optional<String> dataContentType();
 
-    /** Identifies the schema that {@link #data()} adheres to. */
+    /**
+     * Identifies the schema that {@link #data()} adheres to.
+     */
     Optional<URI> dataSchema();
 
-    /** The event payload. */
+    /**
+     * The event payload.
+     */
     Optional<T> data();
 
-    /** The event extensions. */
+    /**
+     * The event extensions.
+     */
     Extensions extensions();
 }
