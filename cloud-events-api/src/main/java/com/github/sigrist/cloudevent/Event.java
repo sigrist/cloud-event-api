@@ -7,23 +7,23 @@ import java.util.Optional;
 
 public interface Event<T> extends Serializable {
 
-	String eventId();
+    String eventId();
 
-	URI source();
+    URI source();
 
-	String specVersion();
+    String specVersion();
 
-	String type();
+    String type();
 
-	Optional<String> subject();
+    Optional<String> subject();
 
-	Optional<LocalDateTime> time();
+    Optional<LocalDateTime> time();
 
-	Optional<String> dataContentType();
+    Optional<String> dataContentType();
 
-	Optional<URI> dataSchema();
+    Optional<URI> dataSchema();
 
-	Optional<T> data();
+    Optional<T> data();
 
-	Extensions extensions();
+    Extensions extensions();
 }

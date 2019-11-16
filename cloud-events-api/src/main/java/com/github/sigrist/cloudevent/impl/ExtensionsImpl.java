@@ -7,17 +7,17 @@ import com.github.sigrist.cloudevent.Extensions;
 
 public class ExtensionsImpl extends ArrayList<Extension> implements Extensions {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2544416779523013927L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 2544416779523013927L;
 
-	public ExtensionsImpl() {
-	}
+    public ExtensionsImpl() {
+    }
 
-	public ExtensionsImpl(final Extensions extensions, final Extension extension) {
-		extensions.forEach(this::add);
-		this.add(extension);
-	}
+    public ExtensionsImpl(final Extensions extensions, final Extension extension) {
+        extensions.forEach(this::add);
+        this.add(extension);
+    }
 
 }

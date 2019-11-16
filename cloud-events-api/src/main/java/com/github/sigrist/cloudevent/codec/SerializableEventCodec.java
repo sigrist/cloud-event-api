@@ -9,26 +9,26 @@ import com.github.sigrist.cloudevent.EventCodec;
 
 public class SerializableEventCodec extends BaseSerializableCodec implements EventCodec {
 
-	@Override
-	public byte[] encode(final Event<?> event) {
-		return this.toBytes(event);
-	}
+    @Override
+    public byte[] encode(final Event<?> event) {
+        return this.toBytes(event);
+    }
 
-	@Override
-	public <T> Event<T> decode(final InputStream stream, final Class<T> clazz) {
-		final Object object;
+    @Override
+    public <T> Event<T> decode(final InputStream stream, final Class<T> clazz) {
+        final Object object;
 
-		try {
-			object = this.toObject(stream.readAllBytes());
-			// TODO IF
-			if (object instanceof Event) {
-				return (Event<T>) object;
-			}
-			throw new CloudEventException("Object is not instance of Event: " + object.getClass());
-		} catch (IOException e) {
-			throw new CloudEventException("Error decoding event object", e);
-		}
+        try {
+            object = this.toObject(stream.readAllBytes());
+            // TODO IF
+            if (object instanceof Event) {
+                return (Event<T>) object;
+            }
+            throw new CloudEventException("Object is not instance of Event: " + object.getClass());
+        } catch (IOException e) {
+            throw new CloudEventException("Error decoding event object", e);
+        }
 
-	}
+    }
 
 }
