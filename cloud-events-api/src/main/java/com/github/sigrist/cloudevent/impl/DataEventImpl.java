@@ -19,7 +19,7 @@ public class DataEventImpl<T> extends DataContentTypeEventImpl<T> implements Eve
 		super(origin, codec.contentType());
 		this.theCodec = codec;
 		this.theClazz = (Class<T>) data.getClass();
-		
+
 		this.theData = this.theCodec.encode(data);
 	}
 
@@ -27,7 +27,5 @@ public class DataEventImpl<T> extends DataContentTypeEventImpl<T> implements Eve
 	public Optional<T> data() {
 		return Optional.ofNullable(this.theCodec.decode(this.theData, this.theClazz));
 	}
-	
-	
 
 }

@@ -10,7 +10,6 @@ import com.github.sigrist.cloudevent.CloudEventException;
 
 public abstract class BaseSerializableCodec {
 	protected final Object toObject(final byte[] data) {
-		
 
 		try (final ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data))) {
 			return ois.readObject();

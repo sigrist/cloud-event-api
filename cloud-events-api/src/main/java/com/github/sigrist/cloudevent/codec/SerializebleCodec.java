@@ -35,5 +35,4 @@ public class SerializebleCodec extends BaseSerializableCodec implements Codec {
 		return "text/plain";
 	}
 
-
 }

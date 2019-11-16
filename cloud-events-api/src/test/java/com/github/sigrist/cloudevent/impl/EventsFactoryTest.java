@@ -49,8 +49,7 @@ public class EventsFactoryTest {
 		final Event<MyPayload> event = factory.myPayloadEvent(payload);
 		final URI payloadDataSchema = URI.create("/MyPayloadDataSchema");
 
-		
-		assertNotNull(event); 
+		assertNotNull(event);
 		assertNotNull(event.eventId());
 		assertEquals("1.0", event.specVersion());
 		assertEquals("MyPayloadEvent", event.type());
@@ -64,20 +63,19 @@ public class EventsFactoryTest {
 		assertFalse(event.extensions().iterator().hasNext());
 
 	}
-	
+
 	@Test
 	public void testMyPayloadEventWithExtension() {
 		final MyPayload payload = new MyPayload(40, "Paulo Sigrist");
 		final Event<MyPayload> event = factory.myPayloadWithExtension(payload);
 
-		assertNotNull(event); 
+		assertNotNull(event);
 		assertNotNull(event.eventId());
 		assertEquals("1.0", event.specVersion());
 		assertEquals("MyPayloadWithExtension", event.type());
 		assertEquals(expectedSource, event.source());
 
 	}
-	
 
 	@Test
 	public void testToStream() throws IOException {
@@ -86,12 +84,12 @@ public class EventsFactoryTest {
 		final Event<MyPayload> event = factory.myPayloadEvent(payload);
 		final URI payloadDataSchema = URI.create("/MyPayloadDataSchema");
 		final SerializableEventCodec codec = new SerializableEventCodec();
-		
+
 		byte[] data = codec.encode(event);
-		
+
 		Event<MyPayload> event2 = codec.decode(new ByteArrayInputStream(data), MyPayload.class);
-		
-		assertNotNull(event2); 
+
+		assertNotNull(event2);
 		assertNotNull(event2.eventId());
 		assertEquals("1.0", event2.specVersion());
 		assertEquals("MyPayloadEvent", event2.type());
@@ -104,22 +102,18 @@ public class EventsFactoryTest {
 		assertEquals(payload, event2.data().get());
 		assertFalse(event2.extensions().iterator().hasNext());
 
-		
-		
-		
-
 	}
+
 	@Test
 	public void testFromStream() {
 		final MyPayload payload = new MyPayload(40, "Paulo Sigrist");
 		final URI payloadDataSchema = URI.create("/MyPayloadDataSchema");
-		
-		
+
 		final InputStream inputStream = EventsFactoryTest.class.getResourceAsStream("/event.data");
-		
+
 		final Event<MyPayload> event = this.factory.fromStream(inputStream, MyPayload.class);
-		
-		assertNotNull(event); 
+
+		assertNotNull(event);
 		assertNotNull(event.eventId());
 		assertEquals("1.0", event.specVersion());
 		assertEquals("MyPayloadEvent", event.type());
@@ -131,6 +125,6 @@ public class EventsFactoryTest {
 		assertFalse(event.data().isEmpty());
 		assertEquals(payload, event.data().get());
 		assertFalse(event.extensions().iterator().hasNext());
-		
+
 	}
 }

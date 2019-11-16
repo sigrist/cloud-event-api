@@ -4,7 +4,6 @@ import java.net.URI;
 
 public interface EventFactory {
 
-
 	URI source();
 
 }

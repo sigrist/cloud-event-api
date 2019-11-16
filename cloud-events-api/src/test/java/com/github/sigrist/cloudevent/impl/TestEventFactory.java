@@ -17,17 +17,15 @@ public class TestEventFactory extends AbstractEventFactory implements EventFacto
 	public Event<Void> myVoidEvent() {
 		return this.create("voidEvent");
 	}
-	
+
 	public Event<MyPayload> myPayloadEvent(final MyPayload payload) {
-		return new DataSchemaEventImpl<>(
-				new LocalDataTimeEventImpl<>(new SubjectEventImpl<>(this.create("MyPayloadEvent", "text/plain", payload), "Subject"),
-						LocalDateTime.now()),
-				URI.create("/MyPayloadDataSchema"));
+		return new DataSchemaEventImpl<>(new LocalDataTimeEventImpl<>(
+				new SubjectEventImpl<>(this.create("MyPayloadEvent", "text/plain", payload), "Subject"),
+				LocalDateTime.now()), URI.create("/MyPayloadDataSchema"));
 	}
 
-	
 	public Event<MyPayload> myPayloadWithExtension(final MyPayload payload) {
 		return this.create("MyPayloadWithExtension", "text/plain", payload);
 	}
-	
+
 }

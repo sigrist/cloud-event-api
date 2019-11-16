@@ -23,22 +23,22 @@ public class MyPayload implements Serializable {
 	public String getName() {
 		return name;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Name:"+this.getName() + " / Age: "+this.getAge();
+		return "Name:" + this.getName() + " / Age: " + this.getAge();
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof MyPayload) {
-			final MyPayload other = (MyPayload)obj;
-			
+			final MyPayload other = (MyPayload) obj;
+
 			return this.name.equals(other.name) && this.age.equals(other.age);
 		}
 		return false;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return this.name.hashCode();
