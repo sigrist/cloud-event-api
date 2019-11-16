@@ -20,8 +20,8 @@ public class AbstractDecoratorEvent<T> implements Event<T> {
 	}
 
 	@Override
-	public final String id() {
-		return this.origin.id();
+	public final String eventId() {
+		return this.origin.eventId();
 	}
 
 	@Override

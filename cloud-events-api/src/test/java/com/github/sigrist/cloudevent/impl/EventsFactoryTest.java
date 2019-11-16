@@ -30,7 +30,7 @@ public class EventsFactoryTest {
 		final Event<Void> eventVoid = factory.myVoidEvent();
 
 		assertNotNull(eventVoid);
-		assertNotNull(eventVoid.id());
+		assertNotNull(eventVoid.eventId());
 		assertEquals("1.0", eventVoid.specVersion());
 		assertEquals("voidEvent", eventVoid.type());
 		assertEquals(expectedSource, eventVoid.source());
@@ -51,7 +51,7 @@ public class EventsFactoryTest {
 
 		
 		assertNotNull(event); 
-		assertNotNull(event.id());
+		assertNotNull(event.eventId());
 		assertEquals("1.0", event.specVersion());
 		assertEquals("MyPayloadEvent", event.type());
 		assertEquals(expectedSource, event.source());
@@ -71,7 +71,7 @@ public class EventsFactoryTest {
 		final Event<MyPayload> event = factory.myPayloadWithExtension(payload);
 
 		assertNotNull(event); 
-		assertNotNull(event.id());
+		assertNotNull(event.eventId());
 		assertEquals("1.0", event.specVersion());
 		assertEquals("MyPayloadWithExtension", event.type());
 		assertEquals(expectedSource, event.source());
@@ -92,7 +92,7 @@ public class EventsFactoryTest {
 		Event<MyPayload> event2 = codec.decode(new ByteArrayInputStream(data), MyPayload.class);
 		
 		assertNotNull(event2); 
-		assertNotNull(event2.id());
+		assertNotNull(event2.eventId());
 		assertEquals("1.0", event2.specVersion());
 		assertEquals("MyPayloadEvent", event2.type());
 		assertEquals(expectedSource, event2.source());
@@ -120,7 +120,7 @@ public class EventsFactoryTest {
 		final Event<MyPayload> event = this.factory.fromStream(inputStream, MyPayload.class);
 		
 		assertNotNull(event); 
-		assertNotNull(event.id());
+		assertNotNull(event.eventId());
 		assertEquals("1.0", event.specVersion());
 		assertEquals("MyPayloadEvent", event.type());
 		assertEquals(expectedSource, event.source());

@@ -43,7 +43,7 @@ final class JacksonJsonEvent<T> implements Event<T> {
 	private LocalDateTime time;
 	
 	@Override
-	public String id() {
+	public String eventId() {
 		return this.id;
 	}
 

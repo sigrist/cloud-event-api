@@ -53,7 +53,7 @@ public class JacksonJsonEventCodecTest {
 		final LocalDateTime expectedTime = LocalDateTime.parse("2019-11-15T14:45:03.650572");
 
 		assertNotNull(event);
-		assertEquals("ae2bc7a9-c52b-4246-9683-111f48029a54", event.id());
+		assertEquals("ae2bc7a9-c52b-4246-9683-111f48029a54", event.eventId());
 		assertEquals("1.0", event.specVersion());
 		assertEquals("MyPayloadEvent", event.type());
 		assertEquals(expectedSource, event.source());
@@ -76,7 +76,7 @@ public class JacksonJsonEventCodecTest {
 		final LocalDateTime expectedTime = LocalDateTime.parse("2019-11-15T14:45:03.650572");
 
 		assertNotNull(event);
-		assertEquals("ae2bc7a9-c52b-4246-9683-111f48029a54", event.id());
+		assertEquals("ae2bc7a9-c52b-4246-9683-111f48029a54", event.eventId());
 		assertEquals("1.0", event.specVersion());
 		assertEquals("MyPayloadEvent", event.type());
 		assertEquals(expectedSource, event.source());

@@ -28,7 +28,7 @@ public class DefaultEventImpl<T> implements Event<T> {
 	}
 
 	@Override
-	public String id() {
+	public String eventId() {
 		return this.id;
 	}
 

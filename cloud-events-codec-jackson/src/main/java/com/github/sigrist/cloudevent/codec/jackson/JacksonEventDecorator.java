@@ -46,7 +46,7 @@ public class JacksonEventDecorator<T> extends AbstractDecoratorEvent<T> {
 
 	@JsonProperty("id")
 	public String jacksonId() {
-		return super.id();
+		return super.eventId();
 	}
 
 	@JsonProperty("time")

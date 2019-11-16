@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface Event<T> extends Serializable {
 
-	String id();
+	String eventId();
 
 	URI source();
 
