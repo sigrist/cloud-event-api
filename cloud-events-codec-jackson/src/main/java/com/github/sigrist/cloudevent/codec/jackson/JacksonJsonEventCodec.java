@@ -60,7 +60,7 @@ public class JacksonJsonEventCodec implements EventCodec {
 		return new JacksonJsonDataEvent<>(convertEvent(jsonNode, clazz), jsonNode, codecs, clazz);
 
 	}
-	
+
 	private JsonNode readJsonNode(final InputStream stream) {
 		try {
 			return this.mapper.readTree(stream);

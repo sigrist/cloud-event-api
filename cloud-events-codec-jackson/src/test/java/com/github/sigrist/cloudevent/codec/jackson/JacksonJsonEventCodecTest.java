@@ -24,7 +24,8 @@ import com.github.sigrist.cloudevent.EventCodec;
 
 public class JacksonJsonEventCodecTest {
 
-	private final EventCodec codec = new JacksonJsonEventCodec(new Codecs(new JacksonJsonCodec(), new JacksonXmlCodec()));
+	private final EventCodec codec = new JacksonJsonEventCodec(
+			new Codecs(new JacksonJsonCodec(), new JacksonXmlCodec()));
 	private final MyPayload payload = new MyPayload(40, "Paulo");
 	private final MyEventFactory factory = new MyEventFactory();
 
@@ -68,7 +69,7 @@ public class JacksonJsonEventCodecTest {
 
 	@Test
 	public void testDecodeXml() throws JsonMappingException, JsonProcessingException {
-		
+
 		InputStream stream = JacksonJsonEventCodecTest.class.getResourceAsStream("/expectedEventXml.json");
 		Event<MyPayload> event = codec.decode(stream, MyPayload.class);
 		final URI payloadDataSchema = URI.create("/MyPayloadDataSchemaXml");

@@ -13,9 +13,10 @@ public class JacksonXmlCodec implements Codec {
 	private static final long serialVersionUID = 1L;
 
 	private final XmlMapper mapper = new XmlMapper();
+
 	@Override
 	public String encode(Object source) {
-		
+
 		try {
 			return mapper.writeValueAsString(source);
 		} catch (JsonProcessingException e) {

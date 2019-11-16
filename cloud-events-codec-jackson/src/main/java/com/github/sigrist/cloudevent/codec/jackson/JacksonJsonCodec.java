@@ -24,7 +24,7 @@ public class JacksonJsonCodec implements Codec {
 
 	public <T> T decode(final String object, final Class<T> clazz) {
 		ObjectMapper mapper = new ObjectMapper();
-		
+
 		try {
 			return mapper.readValue(object, clazz);
 		} catch (JsonProcessingException e) {
