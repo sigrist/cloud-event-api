@@ -25,7 +25,6 @@ import java.util.Optional;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.github.sigrist.cloudevent.Event;
-import com.github.sigrist.cloudevent.Extensions;
 import com.github.sigrist.cloudevent.impl.AbstractDecoratorEvent;
 
 @JsonPropertyOrder({ "specversion", "type", "source", "subject", "id", "time", "datacontenttype", "dataschema",
@@ -86,9 +85,5 @@ public class JacksonEventDecorator<T> extends AbstractDecoratorEvent<T> {
         return super.data();
     }
 
-    @Override
-    public Extensions extensions() {
-        return super.extensions();
-    }
 
 }

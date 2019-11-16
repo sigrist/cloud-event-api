@@ -51,8 +51,8 @@ public abstract class AbstractEventFactory implements EventFactory {
         return new DataEventImpl<>(new DefaultEventImpl<>(this.source(), type), codec, data);
     }
 
-    public final <T> Event<T> fromStream(final InputStream inputStream, final Class<T> clazz) {
-        return this.theEventCodec.decode(inputStream, clazz);
+    public final <T> Event<T> fromStream(final InputStream inputStream, final Class<T> payloadClazz) {
+        return this.theEventCodec.decode(inputStream, payloadClazz);
     }
 
 }

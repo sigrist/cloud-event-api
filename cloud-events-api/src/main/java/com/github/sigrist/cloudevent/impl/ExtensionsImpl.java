@@ -25,6 +25,11 @@ import com.github.sigrist.cloudevent.Extensions;
 
 public class ExtensionsImpl extends ArrayList<Extension> implements Extensions {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     public ExtensionsImpl() {
     }
 

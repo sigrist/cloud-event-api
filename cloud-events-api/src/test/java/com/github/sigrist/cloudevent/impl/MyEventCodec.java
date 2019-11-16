@@ -10,14 +10,12 @@ class MyEventCodec implements EventCodec {
 
     @Override
     public byte[] encode(Event<?> event) {
-        // TODO Auto-generated method stub
-        return null;
+        throw new UnsupportedOperationException("Unit tests. Should not be called");
     }
 
     @Override
     public <T> Event<T> decode(InputStream stream, Class<T> payloadClazz) {
-        // TODO Auto-generated method stub
-        return null;
+        throw new UnsupportedOperationException("Unit tests. Should not be called");
     }
 
     @Override
@@ -26,20 +24,18 @@ class MyEventCodec implements EventCodec {
 
             @Override
             public String encode(Object payload) {
-                // TODO Auto-generated method stub
-                return null;
+                return payload.toString();
             }
 
+            @SuppressWarnings("unchecked")
             @Override
             public <T> T decode(String object, Class<T> clazz) {
-                // TODO Auto-generated method stub
-                return null;
+                return (T) object;
             }
 
             @Override
             public String contentType() {
-                // TODO Auto-generated method stub
-                return null;
+                return "text/plain";
             }
             
         };

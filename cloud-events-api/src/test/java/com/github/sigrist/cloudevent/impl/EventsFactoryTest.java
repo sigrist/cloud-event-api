@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.IOException;
 import java.net.URI;
 
 import org.junit.jupiter.api.Test;
@@ -14,11 +13,11 @@ import com.github.sigrist.cloudevent.Event;
 
 public class EventsFactoryTest {
 
-    private final TestEventFactory factory;
+    private final MyEventFactory factory;
     private final URI expectedSource;
 
     public EventsFactoryTest() {
-        this.factory = new TestEventFactory();
+        this.factory = new MyEventFactory();
         this.expectedSource = URI.create("/TestEventFactory");
     }
 
@@ -40,36 +39,21 @@ public class EventsFactoryTest {
 
     }
 
-    public void testMyPayloadEvent() throws IOException {
-        final MyPayload payload = new MyPayload(40, "Paulo Sigrist");
-        final Event<MyPayload> event = factory.myPayloadEvent(payload);
-        final URI payloadDataSchema = URI.create("/MyPayloadDataSchema");
+    @Test
+    public void testEventWithData() {
+        final Event<String> event = factory.myPayloadEvent("MyData");
 
         assertNotNull(event);
         assertNotNull(event.eventId());
         assertEquals("1.0", event.specVersion());
         assertEquals("MyPayloadEvent", event.type());
         assertEquals(expectedSource, event.source());
-        assertEquals("Subject", event.subject().get());
+        assertFalse(event.subject().isEmpty());
         assertFalse(event.time().isEmpty());
         assertEquals("text/plain", event.dataContentType().get());
-        assertEquals(payloadDataSchema, event.dataSchema().get());
-        assertFalse(event.data().isEmpty());
-        assertEquals(payload, event.data().get());
+        assertFalse(event.dataSchema().isEmpty());
+        assertEquals("MyData", event.data().get());
         assertFalse(event.extensions().iterator().hasNext());
-
-    }
-
-    @Test
-    public void testMyPayloadEventWithExtension() {
-        final MyPayload payload = new MyPayload(40, "Paulo Sigrist");
-        final Event<MyPayload> event = factory.myPayloadWithExtension(payload);
-
-        assertNotNull(event);
-        assertNotNull(event.eventId());
-        assertEquals("1.0", event.specVersion());
-        assertEquals("MyPayloadWithExtension", event.type());
-        assertEquals(expectedSource, event.source());
 
     }
 
