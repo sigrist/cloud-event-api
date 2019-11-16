@@ -20,7 +20,7 @@ public class SerializebleCodec extends BaseSerializableCodec implements Codec {
 
 	@Override
 	public <T> T decode(final String target, final Class<T> clazz) {
-		byte[] data = Base64.getDecoder().decode(target);
+		final byte[] data = Base64.getDecoder().decode(target);
 		final Object o = this.toObject(data);
 
 		// TODO if
