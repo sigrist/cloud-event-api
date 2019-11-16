@@ -6,13 +6,13 @@ import com.github.sigrist.cloudevent.Extension;
 
 public class DataRefExtension implements Extension {
 
-	private final URI dataRef;
+	private final URI dataRefURI;
 
 	public DataRefExtension(final URI dataRef) {
-		this.dataRef = dataRef;
+		this.dataRefURI = dataRef;
 	}
 
 	URI dataRef() {
-		return this.dataRef;
+		return this.dataRefURI;
 	}
 }
