@@ -23,7 +23,7 @@ import java.net.URI;
 /**
  * Factory to create events.
  * 
- * @author sigrist
+ * @since 1.0.0
  *
  */
 public interface EventFactory {

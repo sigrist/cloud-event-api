@@ -21,7 +21,7 @@ package com.github.sigrist.cloudevent;
 /**
  * API Exception.
  * 
- * @author sigrist
+ * @since 1.0.0
  *
  */
 public class CloudEventException extends RuntimeException {

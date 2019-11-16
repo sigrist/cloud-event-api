@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
  * The {@link Codecs} cannot have two {@link Codec} with the same Content Type.
  * The latest one added will be keep it.
  * 
- * @author sigrist
+ * @since 1.0.0
  *
  */
 public class Codecs {
