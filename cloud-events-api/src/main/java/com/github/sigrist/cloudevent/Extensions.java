@@ -22,7 +22,6 @@ package com.github.sigrist.cloudevent;
  * A collection of {@link Extension}.
  * 
  * @since 1.0.0
- *
  */
 public interface Extensions extends Iterable<Extension> {
 

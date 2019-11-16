@@ -23,7 +23,6 @@ package com.github.sigrist.cloudevent;
  * distinct names, known as "extension attributes".
  * 
  * @since 1.0.0
- *
  */
 public interface Extension {
 

@@ -25,12 +25,8 @@ import java.util.Optional;
 /**
  * An "event" is a data record expressing an occurrence and its context.
  * 
- * @see https://github.com/cloudevents/spec/blob/v1.0/spec.md#event
- * 
  * @param <T> The event payload.
- * 
  * @since 1.0.0
- * 
  */
 public interface Event<T> {
 

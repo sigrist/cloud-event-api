@@ -24,13 +24,10 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * A {@link Codec} list.
- * 
- * The {@link Codecs} cannot have two {@link Codec} with the same Content Type.
- * The latest one added will be keep it.
+ * A {@link Codec} list. The {@link Codecs} cannot have two {@link Codec} with
+ * the same Content Type. The latest one added will be keep it.
  * 
  * @since 1.0.0
- *
  */
 public class Codecs {
 
@@ -58,12 +55,10 @@ public class Codecs {
     }
 
     /**
-     * A non-operational implementation of {@link Codec}.
-     * 
-     * Returned when the content type is not available.
+     * A non-operational implementation of {@link Codec}. Returned when the content
+     * type is not available.
      * 
      * @author sigrist
-     *
      */
     private class NopCodec implements Codec {
 

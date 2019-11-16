@@ -24,7 +24,6 @@ import java.net.URI;
  * Factory to create events.
  * 
  * @since 1.0.0
- *
  */
 public interface EventFactory {
 

@@ -24,7 +24,6 @@ import java.io.InputStream;
  * Translate the event object into JSON Format.
  * 
  * @since 1.0.0
- *
  */
 public interface EventCodec {
 

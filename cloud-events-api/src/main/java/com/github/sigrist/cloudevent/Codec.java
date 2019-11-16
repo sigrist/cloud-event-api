@@ -22,7 +22,6 @@ package com.github.sigrist.cloudevent;
  * Translate the event payload based on the {@link #contentType()}.
  * 
  * @author sigrist
- *
  */
 public interface Codec {
 
