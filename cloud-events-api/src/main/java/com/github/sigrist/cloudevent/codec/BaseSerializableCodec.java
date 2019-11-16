@@ -18,33 +18,35 @@
  */
 package com.github.sigrist.cloudevent.codec;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import com.github.sigrist.cloudevent.CloudEventException;
-import com.github.sigrist.cloudevent.Event;
-import com.github.sigrist.cloudevent.EventCodec;
 
-public class SerializableEventCodec extends BaseSerializableCodec implements EventCodec {
+public abstract class BaseSerializableCodec {
+    protected final Object toObject(final byte[] data) {
 
-    @Override
-    public byte[] encode(final Event<?> event) {
-        return this.toBytes(event);
+        try (final ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data))) {
+            return ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new CloudEventException("Error decoding object", e);
+        }
+
     }
 
-    @Override
-    public <T> Event<T> decode(final InputStream stream, final Class<T> clazz) {
-        final Object object;
-
+    protected final byte[] toBytes(final Object source) {
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        final ObjectOutputStream oos;
         try {
-            object = this.toObject(stream.readAllBytes());
-            // TODO IF
-            if (object instanceof Event) {
-                return (Event<T>) object;
-            }
-            throw new CloudEventException("Object is not instance of Event: " + object.getClass());
+            oos = new ObjectOutputStream(baos);
+            oos.writeObject(source);
+            oos.close();
+            return baos.toByteArray();
         } catch (IOException e) {
-            throw new CloudEventException("Error decoding event object", e);
+            throw new CloudEventException("Error encoding object", e);
         }
 
     }
