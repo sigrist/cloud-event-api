@@ -93,6 +93,6 @@ public class JacksonJsonEventCodec implements EventCodec {
 
     public Codec get(final String contentType) {
         return this.codecs.get(contentType);
-    };
+    }
 
 }
