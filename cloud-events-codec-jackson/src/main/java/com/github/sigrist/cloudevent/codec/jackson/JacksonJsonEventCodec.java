@@ -30,6 +30,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.github.sigrist.cloudevent.CloudEventException;
+import com.github.sigrist.cloudevent.Codec;
 import com.github.sigrist.cloudevent.Codecs;
 import com.github.sigrist.cloudevent.Event;
 import com.github.sigrist.cloudevent.EventCodec;
@@ -50,16 +51,12 @@ public class JacksonJsonEventCodec implements EventCodec {
     }
 
     /**
-     * Converts the `event` into JSON.
-     * 
-     * This is done adding on top of it an instance of
-     * {@link JacksonEventDecorator}, where contains the {@link JsonProperty}
+     * Converts the `event` into JSON. This is done adding on top of it an instance
+     * of {@link JacksonEventDecorator}, where contains the {@link JsonProperty}
      * annotations.
      * 
      * @param event The event to encode.
-     * 
      * @return the event encoded as JSON.
-     * 
      * @throws CloudEventException when there is a JSON processing error.
      */
     @Override
@@ -93,5 +90,9 @@ public class JacksonJsonEventCodec implements EventCodec {
         return this.mapper.convertValue(jsonNode, type);
 
     }
+
+    public Codec get(final String contentType) {
+        return this.codecs.get(contentType);
+    };
 
 }

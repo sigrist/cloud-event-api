@@ -43,4 +43,12 @@ public interface EventCodec {
      * @return an Event instance.
      */
     <T> Event<T> decode(InputStream stream, Class<T> payloadClazz);
+
+    /**
+     * Get a codec by by the content type.
+     * 
+     * @param contentType The codec content type.
+     * @return an instance of Codec
+     */
+    Codec get(String contentType);
 }

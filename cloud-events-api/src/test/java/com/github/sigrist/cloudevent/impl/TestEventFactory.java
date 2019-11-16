@@ -5,13 +5,11 @@ import java.time.LocalDateTime;
 
 import com.github.sigrist.cloudevent.Event;
 import com.github.sigrist.cloudevent.EventFactory;
-import com.github.sigrist.cloudevent.codec.SerializableEventCodec;
-import com.github.sigrist.cloudevent.codec.SerializebleCodec;
 
 public class TestEventFactory extends AbstractEventFactory implements EventFactory {
 
     public TestEventFactory() {
-        super(URI.create("/TestEventFactory"), new SerializableEventCodec(), new SerializebleCodec());
+        super(URI.create("/TestEventFactory"), new MyEventCodec());
     }
 
     public Event<Void> myVoidEvent() {
