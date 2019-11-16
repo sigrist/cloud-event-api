@@ -6,12 +6,12 @@ import com.github.sigrist.cloudevent.Extension;
 
 public class DistributedTracingExtension implements Extension {
 
-	private final String traceParent;
-	private final Optional<String> traceState;
+	private final String parent;
+	private final Optional<String> state;
 	
 	private DistributedTracingExtension(final String traceParent, final Optional<String> traceState) {
-		this.traceParent = traceParent;
-		this.traceState = traceState;
+		this.parent = traceParent;
+		this.state = traceState;
 	}
 
 	public DistributedTracingExtension(final String traceParent, final String traceState) {
@@ -24,10 +24,10 @@ public class DistributedTracingExtension implements Extension {
 	
 
 	public String traceParent() {
-		return traceParent;
+		return this.parent;
 	}
 	
 	public Optional<String> traceState() {
-		return traceState;
+		return this.state;
 	}
 }
