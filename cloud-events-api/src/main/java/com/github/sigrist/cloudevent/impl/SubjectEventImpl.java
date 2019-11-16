@@ -6,10 +6,6 @@ import com.github.sigrist.cloudevent.Event;
 
 public class SubjectEventImpl<T> extends AbstractDecoratorEvent<T> implements Event<T> {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
     private final String theSubject;
 
     public SubjectEventImpl(final Event<T> origin, final String subject) {

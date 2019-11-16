@@ -18,11 +18,6 @@ public class JacksonEventDecorator<T> extends AbstractDecoratorEvent<T> {
         super(origin);
     }
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
-
     @JsonProperty("specversion")
     public String jacksonSpecVersion() {
         return super.specVersion();

@@ -6,11 +6,6 @@ import java.util.Optional;
 import com.github.sigrist.cloudevent.Event;
 
 public class LocalDataTimeEventImpl<T> extends AbstractDecoratorEvent<T> implements Event<T> {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
-
     private final LocalDateTime theTime;
 
     public LocalDataTimeEventImpl(final Event<T> origin, final LocalDateTime time) {

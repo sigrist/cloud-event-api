@@ -6,10 +6,6 @@ import com.github.sigrist.cloudevent.Event;
 
 public class DataContentTypeEventImpl<T> extends AbstractDecoratorEvent<T> implements Event<T> {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
     private final String theContentType;
 
     public DataContentTypeEventImpl(final Event<T> origin, final String dataContentType) {

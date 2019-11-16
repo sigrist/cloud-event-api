@@ -7,10 +7,6 @@ import com.github.sigrist.cloudevent.Event;
 
 public class DataSchemaEventImpl<T> extends AbstractDecoratorEvent<T> implements Event<T> {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
     private final URI theDataSchema;
 
     public DataSchemaEventImpl(final Event<T> origin, final URI dataSchema) {

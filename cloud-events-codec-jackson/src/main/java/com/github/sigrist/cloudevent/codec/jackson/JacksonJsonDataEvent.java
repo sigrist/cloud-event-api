@@ -12,10 +12,6 @@ import com.github.sigrist.cloudevent.impl.AbstractDecoratorEvent;
 
 public class JacksonJsonDataEvent<T> extends AbstractDecoratorEvent<T> {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
     private final Codecs codecs;
     private final Class<T> clazz;
     private final JsonNode rawJson;

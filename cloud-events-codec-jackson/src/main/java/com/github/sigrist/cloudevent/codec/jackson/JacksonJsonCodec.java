@@ -7,11 +7,6 @@ import com.github.sigrist.cloudevent.Codec;
 
 public class JacksonJsonCodec implements Codec {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
-
     @Override
     public String encode(final Object source) {
         ObjectMapper mapper = new ObjectMapper();

@@ -1,14 +1,12 @@
 package com.github.sigrist.cloudevent;
 
-import java.io.Serializable;
-
 /**
  * Translate the event payload based on the {@link #contentType()}.
  * 
  * @author sigrist
  *
  */
-public interface Codec extends Serializable {
+public interface Codec {
 
     /**
      * Encode the payload into the content type.

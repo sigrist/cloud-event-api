@@ -6,10 +6,6 @@ import com.github.sigrist.cloudevent.Codec;
 import com.github.sigrist.cloudevent.Event;
 
 public class DataEventImpl<T> extends DataContentTypeEventImpl<T> implements Event<T> {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
     private final String theData;
     private final Codec theCodec;
     private final Class<T> theClazz;

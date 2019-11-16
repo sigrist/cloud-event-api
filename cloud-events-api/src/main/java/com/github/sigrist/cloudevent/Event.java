@@ -1,6 +1,5 @@
 package com.github.sigrist.cloudevent;
 
-import java.io.Serializable;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -14,7 +13,7 @@ import java.util.Optional;
  *
  * @param <T> The event payload.
  */
-public interface Event<T> extends Serializable {
+public interface Event<T> {
 
     /** Identifies the event. */
     String eventId();

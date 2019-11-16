@@ -1,6 +1,5 @@
 package com.github.sigrist.cloudevent;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Function;
@@ -15,12 +14,7 @@ import java.util.stream.Collectors;
  * @author sigrist
  *
  */
-public class Codecs implements Serializable {
-
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
+public class Codecs {
 
     /** A map of codecs. The {@link Codec#contentType()} is the key. */
     private final Map<String, Codec> codecsMap;

@@ -13,11 +13,6 @@ import com.github.sigrist.cloudevent.impl.ExtensionsImpl;
 @JsonIgnoreProperties(ignoreUnknown = true)
 final class JacksonJsonEvent<T> implements Event<T> {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
-
     @JsonProperty(value = "id", required = true)
     private String id;
 
