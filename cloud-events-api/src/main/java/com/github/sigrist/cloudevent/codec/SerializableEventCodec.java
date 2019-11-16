@@ -25,7 +25,7 @@ public class SerializableEventCodec extends BaseSerializableCodec implements Eve
 			if (object instanceof Event) {
 				return (Event<T>) object;
 			}
-			return null;
+			throw new CloudEventException("Object is not instance of Event: " + object.getClass());
 		} catch (IOException e) {
 			throw new CloudEventException("Error decoding event object", e);
 		}
