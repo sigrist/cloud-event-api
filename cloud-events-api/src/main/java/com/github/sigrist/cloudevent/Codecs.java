@@ -19,7 +19,7 @@ public class Codecs implements Serializable {
 	}
 
 	public Codec get(final String contentType) {
-		return this.codecsMap.getOrDefault(contentType, new NopCodec());
+		return this.codecsMap.getOrDefault(contentType, new NopCodec(contentType));
 	}
 
 	private class NopCodec implements Codec {
@@ -28,20 +28,25 @@ public class Codecs implements Serializable {
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
+		private final String theContentType;
 
-		@Override
-		public String encode(Object source) {
-			throw new UnsupportedOperationException("Encode: invalid codec");
+		public NopCodec(final String contentType) {
+			this.theContentType = contentType;
 		}
 
 		@Override
-		public <T> T decode(String object, Class<T> clazz) {
-			throw new UnsupportedOperationException("Decode: invalid codec");
+		public String encode(final Object source) {
+			throw new UnsupportedOperationException("Encode: invalid codec '" + this.theContentType + "'");
+		}
+
+		@Override
+		public <T> T decode(final String object, final Class<T> clazz) {
+			throw new UnsupportedOperationException("Decode: invalid codec '" + this.theContentType + "'");
 		}
 
 		@Override
 		public String contentType() {
-			throw new UnsupportedOperationException("ContentType: invalid codec");
+			throw new UnsupportedOperationException("ContentType: invalid codec '" + this.theContentType + "'");
 		}
 
 	}
