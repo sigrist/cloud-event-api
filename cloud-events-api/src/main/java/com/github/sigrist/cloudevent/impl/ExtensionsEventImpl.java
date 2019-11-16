@@ -10,15 +10,15 @@ public class ExtensionsEventImpl<T> extends AbstractDecoratorEvent<T> implements
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final Extensions extensions;
+	private final Extensions theExtensions;
 
 	public ExtensionsEventImpl(final Event<T> origin, final Extension extension) {
 		super(origin);
-		this.extensions = new ExtensionsImpl(origin.extensions(), extension);
+		this.theExtensions = new ExtensionsImpl(origin.extensions(), extension);
 	}
 
 	@Override
 	public Extensions extensions() {
-		return this.extensions;
+		return this.theExtensions;
 	}
 }

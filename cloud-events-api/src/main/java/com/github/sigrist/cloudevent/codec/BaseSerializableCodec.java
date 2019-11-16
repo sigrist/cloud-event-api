@@ -1,4 +1,4 @@
-package com.github.sigrist.cloudevent.impl;
+package com.github.sigrist.cloudevent.codec;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

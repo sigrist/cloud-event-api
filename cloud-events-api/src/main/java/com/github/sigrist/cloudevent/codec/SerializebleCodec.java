@@ -4,7 +4,6 @@ import java.util.Base64;
 
 import com.github.sigrist.cloudevent.CloudEventException;
 import com.github.sigrist.cloudevent.Codec;
-import com.github.sigrist.cloudevent.impl.BaseSerializableCodec;
 
 public class SerializebleCodec extends BaseSerializableCodec implements Codec {
 

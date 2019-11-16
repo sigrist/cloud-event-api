@@ -7,8 +7,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.sigrist.cloudevent.CloudEventException;
 import com.github.sigrist.cloudevent.Codec;
+import com.github.sigrist.cloudevent.Codecs;
 import com.github.sigrist.cloudevent.impl.AbstractDecoratorEvent;
-import com.github.sigrist.cloudevent.impl.Codecs;
 
 public class JacksonJsonDataEvent<T> extends AbstractDecoratorEvent<T> {
 

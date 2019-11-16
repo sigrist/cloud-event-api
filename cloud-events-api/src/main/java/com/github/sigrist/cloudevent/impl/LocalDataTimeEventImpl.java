@@ -11,15 +11,15 @@ public class LocalDataTimeEventImpl<T> extends AbstractDecoratorEvent<T> impleme
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private final LocalDateTime time;
+	private final LocalDateTime theTime;
 
 	public LocalDataTimeEventImpl(final Event<T> origin, final LocalDateTime time) {
 		super(origin);
-		this.time = time;
+		this.theTime = time;
 	}
 
 	@Override
 	public Optional<LocalDateTime> time() {
-		return Optional.of(this.time);
+		return Optional.of(this.theTime);
 	}
 }

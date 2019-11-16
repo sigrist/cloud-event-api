@@ -7,7 +7,7 @@ import java.util.Optional;
 import com.github.sigrist.cloudevent.Event;
 import com.github.sigrist.cloudevent.Extensions;
 
-public class AbstractDecoratorEvent<T> implements Event<T> {
+public abstract class AbstractDecoratorEvent<T> implements Event<T> {
 	/**
 	 * 
 	 */

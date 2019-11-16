@@ -10,15 +10,15 @@ public class DataContentTypeEventImpl<T> extends AbstractDecoratorEvent<T> imple
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String dataContentType;
+	private final String theDataContentType;
 
 	public DataContentTypeEventImpl(final Event<T> origin, final String dataContentType) {
 		super(origin);
-		this.dataContentType = dataContentType;
+		this.theDataContentType = dataContentType;
 	}
 
 	@Override
 	public Optional<String> dataContentType() {
-		return Optional.of(this.dataContentType);
+		return Optional.ofNullable(this.theDataContentType);
 	}
 }

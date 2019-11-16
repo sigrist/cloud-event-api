@@ -10,22 +10,22 @@ public class DataEventImpl<T> extends DataContentTypeEventImpl<T> implements Eve
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String data;
-	private final Codec codec;
-	private final Class<T> clazz;
+	private final String theData;
+	private final Codec theCodec;
+	private final Class<T> theClazz;
 
 	@SuppressWarnings("unchecked")
 	public DataEventImpl(final Event<T> origin, final Codec codec, final Object data) {
 		super(origin, codec.contentType());
-		this.codec = codec;
-		this.clazz = (Class<T>) data.getClass();
+		this.theCodec = codec;
+		this.theClazz = (Class<T>) data.getClass();
 		
-		this.data = this.codec.encode(data);
+		this.theData = this.theCodec.encode(data);
 	}
 
 	@Override
 	public Optional<T> data() {
-		return Optional.of(this.codec.decode(this.data, this.clazz));
+		return Optional.ofNullable(this.theCodec.decode(this.theData, this.theClazz));
 	}
 	
 	

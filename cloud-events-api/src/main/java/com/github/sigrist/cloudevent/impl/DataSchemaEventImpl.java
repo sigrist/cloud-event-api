@@ -11,16 +11,16 @@ public class DataSchemaEventImpl<T> extends AbstractDecoratorEvent<T> implements
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final URI dataSchemaURI;
+	private final URI theDataSchema;
 
 	public DataSchemaEventImpl(final Event<T> origin, final URI dataSchema) {
 		super(origin);
-		this.dataSchemaURI = dataSchema;
+		this.theDataSchema = dataSchema;
 	}
 
 	@Override
 	public Optional<URI> dataSchema() {
-		return Optional.of(this.dataSchemaURI);
+		return Optional.ofNullable(this.theDataSchema);
 	}
 
 }

@@ -10,15 +10,15 @@ public class SubjectEventImpl<T> extends AbstractDecoratorEvent<T> implements Ev
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String subject;
+	private final String theSubject;
 
 	public SubjectEventImpl(final Event<T> origin, final String subject) {
 		super(origin);
-		this.subject = subject;
+		this.theSubject = subject;
 	}
 
 	@Override
 	public Optional<String> subject() {
-		return Optional.of(this.subject);
+		return Optional.of(this.theSubject);
 	}
 }

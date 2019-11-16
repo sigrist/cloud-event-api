@@ -18,9 +18,9 @@ import org.skyscreamer.jsonassert.comparator.CustomComparator;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.github.sigrist.cloudevent.Codecs;
 import com.github.sigrist.cloudevent.Event;
 import com.github.sigrist.cloudevent.EventCodec;
-import com.github.sigrist.cloudevent.impl.Codecs;
 
 public class JacksonJsonEventCodecTest {
 

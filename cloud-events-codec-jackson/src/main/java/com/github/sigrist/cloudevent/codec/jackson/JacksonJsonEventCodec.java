@@ -12,9 +12,9 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.github.sigrist.cloudevent.CloudEventException;
+import com.github.sigrist.cloudevent.Codecs;
 import com.github.sigrist.cloudevent.Event;
 import com.github.sigrist.cloudevent.EventCodec;
-import com.github.sigrist.cloudevent.impl.Codecs;
 
 public class JacksonJsonEventCodec implements EventCodec {
 

@@ -6,7 +6,6 @@ import java.io.InputStream;
 import com.github.sigrist.cloudevent.CloudEventException;
 import com.github.sigrist.cloudevent.Event;
 import com.github.sigrist.cloudevent.EventCodec;
-import com.github.sigrist.cloudevent.impl.BaseSerializableCodec;
 
 public class SerializableEventCodec extends BaseSerializableCodec implements EventCodec {
 

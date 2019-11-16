@@ -1,12 +1,10 @@
-package com.github.sigrist.cloudevent.impl;
+package com.github.sigrist.cloudevent;
 
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import com.github.sigrist.cloudevent.Codec;
 
 public class Codecs implements Serializable {
 

@@ -13,38 +13,38 @@ public class DefaultEventImpl<T> implements Event<T> {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String id;
-	private final URI source;
-	private final String specVersion;
-	private final String type;
-	private final Extensions extensions;
+	private final String theId;
+	private final URI theSource;
+	private final String theSpecVersion;
+	private final String theType;
+	private final Extensions theExtensions;
 
 	public DefaultEventImpl(final URI source, final String type) {
-		this.id = UUID.randomUUID().toString();
-		this.source = source;
-		this.specVersion = "1.0";
-		this.type = type;
-		this.extensions = new ExtensionsImpl();
+		this.theId = UUID.randomUUID().toString();
+		this.theSource = source;
+		this.theSpecVersion = "1.0";
+		this.theType = type;
+		this.theExtensions = new ExtensionsImpl();
 	}
 
 	@Override
 	public String eventId() {
-		return this.id;
+		return this.theId;
 	}
 
 	@Override
 	public URI source() {
-		return this.source;
+		return this.theSource;
 	}
 
 	@Override
 	public String specVersion() {
-		return this.specVersion;
+		return this.theSpecVersion;
 	}
 
 	@Override
 	public String type() {
-		return this.type;
+		return this.theType;
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class DefaultEventImpl<T> implements Event<T> {
 
 	@Override
 	public Extensions extensions() {
-		return this.extensions;
+		return this.theExtensions;
 	}
 
 }
