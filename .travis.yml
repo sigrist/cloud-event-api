@@ -12,5 +12,11 @@ addons:
 script:
   # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=sigrist_cloud-event-api  
-  
-  
+        
+    
+deploy:
+  provider: script
+  script: 
+  - mvn deploy -Dregistry=https://maven.pkg.github.com/sigrist -Dtoken=$GH_TOKEN
+  on:
+    branch: master, develop    
