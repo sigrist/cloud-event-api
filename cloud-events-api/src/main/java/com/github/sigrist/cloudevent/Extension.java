@@ -24,6 +24,6 @@ package com.github.sigrist.cloudevent;
  * 
  * @since 1.0.0
  */
-public interface Extension {
+public interface Extension extends Iterable<Entry<?>> {
 
 }

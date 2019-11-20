@@ -22,15 +22,10 @@ import java.net.URI;
 
 import com.github.sigrist.cloudevent.Extension;
 
-public class DataRefExtension implements Extension {
-
-    private final URI dataRefURI;
+public class DataRefExtension extends AbstractExtension implements Extension {
 
     public DataRefExtension(final URI dataRef) {
-        this.dataRefURI = dataRef;
+        super(new DefaultEntry<>("dataref", dataRef));
     }
 
-    URI dataRef() {
-        return this.dataRefURI;
-    }
 }
