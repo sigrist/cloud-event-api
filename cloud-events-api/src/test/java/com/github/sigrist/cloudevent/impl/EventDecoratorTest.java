@@ -5,23 +5,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.net.URI;
 import java.time.LocalDateTime;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.github.sigrist.cloudevent.Event;
 
 public class EventDecoratorTest {
 
-    private Event<Void> origin;
+    private final Event<Void> origin = new DefaultEventImpl<>(URI.create("/default"), "Default event");
     private final String contentType = "application/json";
     private final URI schema = URI.create("/shcema1");
     private final String subject = "subject1";
     private final LocalDateTime time = LocalDateTime.parse("2019-11-15T14:45:03.650572");
-
-    @BeforeEach
-    public void beforeTest() {
-        this.origin = new DefaultEventImpl<>(URI.create("/default"), "Default event");
-    }
 
     @Test
     public void testDataContentTypeDecorator() {

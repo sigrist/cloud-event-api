@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.net.URI;
 import java.util.Iterator;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.github.sigrist.cloudevent.Entry;
@@ -18,13 +17,8 @@ import com.github.sigrist.cloudevent.extensions.DistributedTracingExtension;
 
 public class ExtensionsTest {
 
-    private Event<Void> origin;
+    private final Event<Void> origin = new DefaultEventImpl<>(URI.create("/default"), "Default event");
     private final URI dataRef = URI.create("/dataRef");
-
-    @BeforeEach
-    public void beforeTest() {
-        this.origin = new DefaultEventImpl<>(URI.create("/default"), "Default event");
-    }
 
     @Test
     public void testDataRefExtension() {
