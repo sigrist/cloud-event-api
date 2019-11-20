@@ -3,19 +3,16 @@ package com.github.sigrist.cloudevent.codec.jackson;
 import java.net.URI;
 import java.time.LocalDateTime;
 
-import com.github.sigrist.cloudevent.Codecs;
 import com.github.sigrist.cloudevent.Event;
 import com.github.sigrist.cloudevent.EventFactory;
-import com.github.sigrist.cloudevent.impl.AbstractEventFactory;
 import com.github.sigrist.cloudevent.impl.DataSchemaEventImpl;
 import com.github.sigrist.cloudevent.impl.LocalDataTimeEventImpl;
 import com.github.sigrist.cloudevent.impl.SubjectEventImpl;
 
-public class MyEventFactory extends AbstractEventFactory implements EventFactory {
+public class MyEventFactory extends JacksonEventFactory implements EventFactory {
 
     public MyEventFactory() {
-        super(URI.create("/MyEventFactory"),
-                new JacksonJsonEventCodec(new Codecs(new JacksonJsonCodec(), new JacksonXmlCodec())));
+        super(URI.create("/MyEventFactory"));
     }
 
     public Event<MyPayload> simpleEvent(final MyPayload payload) {

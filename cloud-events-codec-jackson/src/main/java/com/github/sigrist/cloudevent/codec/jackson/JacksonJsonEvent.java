@@ -24,9 +24,10 @@ import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.github.sigrist.cloudevent.Event;
 import com.github.sigrist.cloudevent.Extensions;
-import com.github.sigrist.cloudevent.impl.ExtensionsImpl;
+import com.github.sigrist.cloudevent.impl.EmptyExtensions;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 final class JacksonJsonEvent<T> implements Event<T> {
@@ -55,6 +56,9 @@ final class JacksonJsonEvent<T> implements Event<T> {
     @JsonProperty("time")
     private LocalDateTime time;
 
+    @JsonProperty("data")
+    private JsonNode rawData;
+    
     @Override
     public String eventId() {
         return this.id;
@@ -102,8 +106,10 @@ final class JacksonJsonEvent<T> implements Event<T> {
 
     @Override
     public Extensions extensions() {
-        // TODO
-        return new ExtensionsImpl();
+        return new EmptyExtensions();
     }
 
+    public Optional<JsonNode> rawData() {
+        return Optional.ofNullable(this.rawData);
+    }
 }

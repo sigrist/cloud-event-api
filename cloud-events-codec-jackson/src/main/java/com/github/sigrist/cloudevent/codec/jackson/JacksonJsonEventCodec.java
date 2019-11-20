@@ -72,8 +72,14 @@ public class JacksonJsonEventCodec implements EventCodec {
     public <T> Event<T> decode(final InputStream stream, final Class<T> clazz) {
         final JsonNode jsonNode = readJsonNode(stream);
 
-        return new JacksonJsonDataEvent<>(convertEvent(jsonNode, clazz), jsonNode, codecs, clazz);
+        final JacksonJsonEvent<T> event = this.convertEvent(jsonNode, clazz);
 
+        return event.rawData().map(node -> dataEvent(event, clazz)).orElse(event);
+
+    }
+
+    private <T> Event<T> dataEvent(final JacksonJsonEvent<T> event, final Class<T> clazz) {
+        return new JacksonJsonDataEvent<>(event, codecs, clazz);
     }
 
     private JsonNode readJsonNode(final InputStream stream) {

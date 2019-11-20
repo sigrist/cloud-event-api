@@ -23,6 +23,7 @@ import java.util.Optional;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.NullNode;
 import com.github.sigrist.cloudevent.CloudEventException;
 import com.github.sigrist.cloudevent.Codec;
 import com.github.sigrist.cloudevent.Codecs;
@@ -35,21 +36,21 @@ public class JacksonJsonDataEvent<T> extends AbstractDecoratorEvent<T> {
     private final JsonNode rawJson;
     private final ObjectMapper mapper;
 
-    public JacksonJsonDataEvent(final JacksonJsonEvent<T> origin, final JsonNode rawJson, final Codecs codecs,
+    public JacksonJsonDataEvent(final JacksonJsonEvent<T> origin, final Codecs codecs,
             final Class<T> clazz) {
         super(origin);
         this.mapper = new ObjectMapper();
         this.codecs = codecs;
         this.clazz = clazz;
-        this.rawJson = rawJson;
+        this.rawJson = origin.rawData().orElse(NullNode.getInstance());
     }
 
     @Override
     public Optional<T> data() {
 
-        Optional<JsonNode> data = this.rawData();
+        final String rawValue = value();
 
-        return data.map(this::decodedData).orElse(Optional.empty());
+        return Optional.ofNullable(codec().decode(rawValue, this.clazz));
 
     }
 
@@ -57,23 +58,13 @@ public class JacksonJsonDataEvent<T> extends AbstractDecoratorEvent<T> {
         return this.codecs.get(this.dataContentType().orElseThrow());
     }
 
-    private Optional<T> decodedData(final JsonNode node) {
-        String rawValue = value(node);
-
-        return Optional.ofNullable(codec().decode(rawValue, this.clazz));
-    }
-
-    private String value(final JsonNode node) {
+    
+    private String value() {
         try {
-            return node.isContainerNode() ? mapper.writeValueAsString(node) : node.asText();
+            return this.rawJson.isContainerNode() ? mapper.writeValueAsString(this.rawJson) : this.rawJson.asText();
         } catch (JsonProcessingException e) {
             throw new CloudEventException("Error readind data field", e);
         }
-    }
-
-    private Optional<JsonNode> rawData() {
-        return this.rawJson.has("data") && this.dataContentType().isPresent() ? Optional.of(this.rawJson.get("data"))
-                : Optional.empty();
     }
 
 }

@@ -31,10 +31,6 @@ public class ExtensionsImpl extends ArrayList<Entry<?>> implements Extensions {
      */
     private static final long serialVersionUID = 1L;
 
-    // TODO REMOVER
-    public ExtensionsImpl() {
-    }
-
     public ExtensionsImpl(final Extensions extensions, final Extension extension) {
         extensions.forEach(this::add);
         extension.forEach(this::add);
