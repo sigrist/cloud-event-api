@@ -9,9 +9,17 @@ addons:
     token:
       secure: "p1O5RjA9ky7t5C771gTu9UCOMh6bxQSsxXjYsgiKIu32C7k97nrWDnrutXv8XD9nZ76Bdw2KdLG0BYnj0kdhi67uz3xogobCE/z7BldEmTGgjqvJkQLaZTfT3UmlzNjiUpcIrH4iwItS2/UirYvmyNiC9SzJZr/wrAuaKpniLrtPya5Sx78r6pT00XqWtFtX4ybR/ZszJ67OhsrgoI21BvrNfHdlzIfexbz0kFUE7jml+nXA11Niph9v/8zdM9r4fgDFFMnZ2/j6N8XmFhSeHVgSsRyOc1r/NsY5kS+i3PFhXne9CBt1CbXhJJR0au97KaLPEGTq1o2CDGKIADwMFjMIjOJ33NqdzloDquh71TjaLQLnlGDovDMWDMFd39yCQaZAqZN9aXBmRvNkA+Yu/w70Jdl0zmbuXYwWLp9n6zdFJ5fVq+yBDylCCAfl2YLt8zKcg9GRI9Fi4+Ncj3cUkOHzfoxgT1j4ln3pCSPZohw7Tjl1JfV/vNp1VLrAXRLlW8bjuu438HvJsZe6MaOELE2anrYxl/tue6GZsInZnQA0ej94+U4n95LCUz7631H+uPwJF9WjuWcNQWLjL3hnXCEKLyt/BMAhNxNwFeVb832f+7tuXD9u/rLyVzC+fF2Fr4k8V0andX82rCkSBfF0RkqXw+5agZR/59UKbLTwziQ="
 
-script:
-  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=sigrist_cloud-event-api  
+stages:
+  - build
+  - deploy
+
+build:
+   provider: script
+   script:
+     # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+     - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=sigrist_cloud-event-api
+   on:
+     all_branches: true  
         
     
 deploy:
