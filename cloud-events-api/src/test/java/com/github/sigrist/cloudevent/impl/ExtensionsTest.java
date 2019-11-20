@@ -1,6 +1,7 @@
 package com.github.sigrist.cloudevent.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -53,6 +54,24 @@ public class ExtensionsTest {
         e = iterator.next();
         assertEquals("tracestate", e.name());
         assertEquals("state", e.value().get());
+
+        assertFalse(iterator.hasNext());
+    }
+
+    @Test
+    public void testDistributedTracingExtensionNoState() {
+
+        Event<Void> event = new ExtensionsEventImpl<>(this.origin, new DistributedTracingExtension("parent"));
+        
+        Iterator<Entry<?>> iterator = event.extensions().iterator();
+        assertTrue(iterator.hasNext());
+        
+        
+        Entry<?> e = iterator.next();
+        assertEquals("traceparent", e.name());
+        assertEquals("parent", e.value().get());
+        
+        assertFalse(iterator.hasNext());
 
     }
 
