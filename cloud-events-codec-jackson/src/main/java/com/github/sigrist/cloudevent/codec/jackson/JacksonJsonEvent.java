@@ -20,16 +20,16 @@ package com.github.sigrist.cloudevent.codec.jackson;
 
 import java.net.URI;
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.sigrist.cloudevent.Event;
 import com.github.sigrist.cloudevent.Extensions;
-import com.github.sigrist.cloudevent.impl.EmptyExtensions;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 final class JacksonJsonEvent<T> implements Event<T> {
 
     @JsonProperty(value = "id", required = true)
@@ -58,6 +58,9 @@ final class JacksonJsonEvent<T> implements Event<T> {
 
     @JsonProperty("data")
     private JsonNode rawData;
+    
+    @JsonAnySetter
+    private final Map<String, Object> extensionFields = new TreeMap<>();
 
     @Override
     public String eventId() {
@@ -106,7 +109,7 @@ final class JacksonJsonEvent<T> implements Event<T> {
 
     @Override
     public Extensions extensions() {
-        return new EmptyExtensions();
+        return new JacksonJsonExtension(this.extensionFields);
     }
 
     public Optional<JsonNode> rawData() {
