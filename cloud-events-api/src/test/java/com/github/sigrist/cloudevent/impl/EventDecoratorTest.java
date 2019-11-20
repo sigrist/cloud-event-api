@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.github.sigrist.cloudevent.Codec;
 import com.github.sigrist.cloudevent.Event;
 
 public class EventDecoratorTest {
@@ -61,7 +60,7 @@ public class EventDecoratorTest {
         final String data = "UnitTest";
 
         final Event<String> event = new DefaultEventImpl<>(URI.create("/default"), "Default event");
-        final Event<String> dataEvent = new DataEventImpl<>(event, new UnitTestCodec(), data);
+        final Event<String> dataEvent = new DataEventImpl<>(event, "text/plain", data);
 
         this.assertOrigin(dataEvent);
         assertEquals(dataEvent.data().get(), data);
@@ -89,23 +88,4 @@ public class EventDecoratorTest {
         assertEquals("Default event", event.type());
     }
 
-    class UnitTestCodec implements Codec {
-
-        @Override
-        public String encode(Object payload) {
-            return payload.toString();
-        }
-
-        @SuppressWarnings("unchecked")
-        @Override
-        public <T> T decode(String object, Class<T> clazz) {
-            return (T) object;
-        }
-
-        @Override
-        public String contentType() {
-            return "text/plain";
-        }
-
-    }
 }

@@ -21,7 +21,6 @@ package com.github.sigrist.cloudevent.impl;
 import java.io.InputStream;
 import java.net.URI;
 
-import com.github.sigrist.cloudevent.Codec;
 import com.github.sigrist.cloudevent.Event;
 import com.github.sigrist.cloudevent.EventCodec;
 import com.github.sigrist.cloudevent.EventFactory;
@@ -46,9 +45,7 @@ public abstract class AbstractEventFactory implements EventFactory {
     }
 
     protected final <T> Event<T> create(final String type, final String contentType, final T data) {
-        final Codec codec = this.theEventCodec.get(contentType);
-
-        return new DataEventImpl<>(new DefaultEventImpl<>(this.source(), type), codec, data);
+        return new DataEventImpl<>(new DefaultEventImpl<>(this.source(), type), contentType, data);
     }
 
     public final <T> Event<T> fromStream(final InputStream inputStream, final Class<T> payloadClazz) {

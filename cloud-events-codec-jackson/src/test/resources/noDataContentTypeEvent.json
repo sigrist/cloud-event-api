@@ -1,0 +1,13 @@
+{
+	"specversion": "1.0",
+	"type": "VoidEvent",
+	"subject": "Subject",
+	"source": "/MyEventFactory",
+	"id": "ae2bc7a9-c52b-4246-9683-111f48029a54",
+	"time": "2019-11-15T14:45:03.650572",
+    "data": {
+        "age": 40,
+        "name": "Paulo"
+    }
+
+}

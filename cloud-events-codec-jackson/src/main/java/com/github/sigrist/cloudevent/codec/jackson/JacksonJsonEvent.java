@@ -58,7 +58,7 @@ final class JacksonJsonEvent<T> implements Event<T> {
 
     @JsonProperty("data")
     private JsonNode rawData;
-    
+
     @Override
     public String eventId() {
         return this.id;
@@ -81,22 +81,22 @@ final class JacksonJsonEvent<T> implements Event<T> {
 
     @Override
     public Optional<String> subject() {
-        return Optional.of(this.subject);
+        return Optional.ofNullable(this.subject);
     }
 
     @Override
     public Optional<LocalDateTime> time() {
-        return Optional.of(this.time);
+        return Optional.ofNullable(this.time);
     }
 
     @Override
     public Optional<String> dataContentType() {
-        return Optional.of(this.dataContentType);
+        return Optional.ofNullable(this.dataContentType);
     }
 
     @Override
     public Optional<URI> dataSchema() {
-        return Optional.of(this.dataSchema);
+        return Optional.ofNullable(this.dataSchema);
     }
 
     @Override

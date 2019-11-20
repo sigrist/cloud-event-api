@@ -34,6 +34,7 @@ import com.github.sigrist.cloudevent.Codec;
 import com.github.sigrist.cloudevent.Codecs;
 import com.github.sigrist.cloudevent.Event;
 import com.github.sigrist.cloudevent.EventCodec;
+import com.github.sigrist.cloudevent.impl.DataEventImpl;
 
 public class JacksonJsonEventCodec implements EventCodec {
 
@@ -41,13 +42,13 @@ public class JacksonJsonEventCodec implements EventCodec {
 
     private final Codecs codecs;
 
-    public JacksonJsonEventCodec(final Codecs codecs) {
+    public JacksonJsonEventCodec() {
         this.mapper = new ObjectMapper();
         this.mapper.registerModule(new Jdk8Module());
         this.mapper.registerModule(new JavaTimeModule());
         this.mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 
-        this.codecs = codecs;
+        this.codecs = new Codecs(new JacksonJsonCodec(), new JacksonXmlCodec());
     }
 
     /**
@@ -74,12 +75,19 @@ public class JacksonJsonEventCodec implements EventCodec {
 
         final JacksonJsonEvent<T> event = this.convertEvent(jsonNode, clazz);
 
-        return event.rawData().map(node -> dataEvent(event, clazz)).orElse(event);
+        return event.rawData().map(node -> createDataEvent(event, value(node), clazz)).orElse(event);
 
     }
 
-    private <T> Event<T> dataEvent(final JacksonJsonEvent<T> event, final Class<T> clazz) {
-        return new JacksonJsonDataEvent<>(event, codecs, clazz);
+    private <T> Event<T> createDataEvent(final JacksonJsonEvent<T> event, final String raw, final Class<T> clazz) {
+
+        return event.dataContentType().map(contentType -> {
+            Codec codec = get(contentType);
+            T data = codec.decode(raw, clazz);
+
+            return new DataEventImpl<>(event, contentType, data);
+        }).orElseThrow(() -> new CloudEventException("No contet type available for event."));
+
     }
 
     private JsonNode readJsonNode(final InputStream stream) {
@@ -99,6 +107,14 @@ public class JacksonJsonEventCodec implements EventCodec {
 
     public Codec get(final String contentType) {
         return this.codecs.get(contentType);
+    }
+
+    private String value(final JsonNode rawJson) {
+        try {
+            return rawJson.isContainerNode() ? mapper.writeValueAsString(rawJson) : rawJson.asText();
+        } catch (JsonProcessingException e) {
+            throw new CloudEventException("Error readind data field", e);
+        }
     }
 
 }

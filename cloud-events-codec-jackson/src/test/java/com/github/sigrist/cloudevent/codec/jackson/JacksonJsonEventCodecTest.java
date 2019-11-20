@@ -22,15 +22,13 @@ import org.skyscreamer.jsonassert.comparator.CustomComparator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.github.sigrist.cloudevent.CloudEventException;
-import com.github.sigrist.cloudevent.Codecs;
 import com.github.sigrist.cloudevent.Event;
 import com.github.sigrist.cloudevent.EventCodec;
 import com.github.sigrist.cloudevent.impl.SubjectEventImpl;
 
 public class JacksonJsonEventCodecTest {
 
-    private final EventCodec codec = new JacksonJsonEventCodec(
-            new Codecs(new JacksonJsonCodec(), new JacksonXmlCodec()));
+    private final EventCodec codec = new JacksonJsonEventCodec();
     private final MyPayload payload = new MyPayload(40, "Paulo");
     private final MyEventFactory factory = new MyEventFactory();
 
@@ -116,25 +114,45 @@ public class JacksonJsonEventCodecTest {
     }
 
     @Test
+    public void testDataWithNoContentType() {
+        InputStream stream = JacksonJsonEventCodecTest.class.getResourceAsStream("/noDataContentTypeEvent.json");
+
+        assertThrows(CloudEventException.class, () -> codec.decode(stream, Void.class));
+
+    }
+
+    @Test
     public void testInvalidStream() {
         InputStream stream = new ByteArrayInputStream("invalid".getBytes());
 
         assertThrows(CloudEventException.class, () -> codec.decode(stream, Void.class));
 
     }
-    
+
     @Test
     public void testInvalidEvent() {
         final Event<Void> event = new SubjectEventImpl<>(null, "Null origin");
-        
+
         assertThrows(CloudEventException.class, () -> codec.encode(event));
+
+    }
+    
+    @Test
+    public void testJacksonJsonCodecEncode() {
+        JacksonJsonCodec jsonCodec = new JacksonJsonCodec();
         
+        assertThrows(CloudEventException.class, () -> jsonCodec.encode(new MyErrorOject()));
+    }
+
+    @Test
+    public void testJacksonJsonCodecDecode() {
+        JacksonJsonCodec jsonCodec = new JacksonJsonCodec();
         
+        assertThrows(CloudEventException.class, () -> jsonCodec.decode("a", MyErrorOject.class));
     }
 
     private String expected() throws IOException {
         final InputStream stream = JacksonJsonEventCodecTest.class.getResourceAsStream("/expectedEvent.json");
         return new String(stream.readAllBytes());
     }
-
 }

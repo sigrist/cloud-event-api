@@ -25,21 +25,25 @@ import com.github.sigrist.cloudevent.Codec;
 
 public class JacksonJsonCodec implements Codec {
 
+    private final ObjectMapper mapper;
+
+    public JacksonJsonCodec() {
+        this.mapper = new ObjectMapper();
+    }
+
     @Override
     public String encode(final Object source) {
-        ObjectMapper mapper = new ObjectMapper();
+
         try {
-            return mapper.writeValueAsString(source);
+            return this.mapper.writeValueAsString(source);
         } catch (JsonProcessingException e) {
             throw new CloudEventException("Error encoding object to JSON", e);
         }
     }
 
     public <T> T decode(final String object, final Class<T> clazz) {
-        ObjectMapper mapper = new ObjectMapper();
-
         try {
-            return mapper.readValue(object, clazz);
+            return this.mapper.readValue(object, clazz);
         } catch (JsonProcessingException e) {
             throw new CloudEventException("Error decoding JSON", e);
         }
