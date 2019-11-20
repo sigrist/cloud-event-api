@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ByteArrayInputStream;
 import java.net.URI;
 
 import org.junit.jupiter.api.Test;
@@ -55,6 +56,13 @@ public class EventsFactoryTest {
         assertEquals("MyData", event.data().get());
         assertFalse(event.extensions().iterator().hasNext());
 
+    }
+    
+    @Test
+    public void testFromStreamCall() {
+        final Event<String> event = factory.fromStream(new ByteArrayInputStream("unitTest".getBytes()), String.class);
+        
+        assertNotNull(event);
     }
 
 }

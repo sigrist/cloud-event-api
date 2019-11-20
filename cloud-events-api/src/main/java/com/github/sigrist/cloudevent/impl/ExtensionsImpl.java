@@ -20,22 +20,23 @@ package com.github.sigrist.cloudevent.impl;
 
 import java.util.ArrayList;
 
+import com.github.sigrist.cloudevent.Entry;
 import com.github.sigrist.cloudevent.Extension;
 import com.github.sigrist.cloudevent.Extensions;
 
-public class ExtensionsImpl extends ArrayList<Extension> implements Extensions {
+public class ExtensionsImpl extends ArrayList<Entry<?>> implements Extensions {
 
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
 
+    // TODO REMOVER
     public ExtensionsImpl() {
     }
 
     public ExtensionsImpl(final Extensions extensions, final Extension extension) {
         extensions.forEach(this::add);
-        this.add(extension);
+        extension.forEach(this::add);
     }
-
 }

@@ -38,7 +38,7 @@ public class DefaultEventImpl<T> implements Event<T> {
         this.theSource = source;
         this.theSpecVersion = "1.0";
         this.theType = type;
-        this.theExtensions = new ExtensionsImpl();
+        this.theExtensions = new ExtensionsImpl(); // TODO Create empry ExtensionImpl
     }
 
     @Override
