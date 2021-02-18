@@ -12,7 +12,7 @@
 	<description>CloudEvents Codec implementation using Jackson JSON API</description>
 
 	<properties>
-		<jackson.version>2.10.1</jackson.version>
+		<jackson.version>2.12.1</jackson.version>
 	</properties>
 
 	<dependencies>
